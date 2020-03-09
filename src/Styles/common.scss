@@ -1,0 +1,26 @@
+@font-face {
+  font-family: "Butler";
+  font-weight: 500;
+  src: url("./Font/Butler_Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bluu Next";
+  font-weight: 700;
+  src: url("./Font/Butler_Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  font-weight: 500;
+  src: url("./Font/SofiaPro_Light.ttf") format("truetype");
+}
+
+body,
+#root {
+  font-family: Butler, serif;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  outline: none;
+}
