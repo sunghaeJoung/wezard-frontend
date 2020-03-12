@@ -1,20 +1,47 @@
 import React from "react";
 import Logo from "./Logo.svg";
+import { GiMagicLamp } from "react-icons/gi";
 import styled from "styled-components";
+import Navigator from "../Navigator/Navigator";
 import { withRouter } from "react-router-dom";
 
-/* 
-componentdidmount로 getItem체크해서 
-  토큰 있으면 로그아웃버튼 표시
-  토큰 없으면 로그인버튼 표시 
-로그아웃하면 remove 토큰 
-*/
 class Header extends React.Component {
   constructor() {
     super();
     this.state = {
+      mode: false,
+      film: false,
+      menu: false,
+      news: false,
+      house: false,
+      discover: false,
+      movingNews: false,
+      movingHouse: false,
+      movingDiscover: false,
+      loginStatus: false
+
       //☞ state값 들어갈 자리
     };
+  }
+  /* 
+  componentdidmount로 getItem체크해서 
+    토큰 있으면 
+      로그아웃버튼 표시
+    토큰 없으면 
+      로그인버튼 표시 
+  로그아웃하면 remove 토큰 
+  */
+  componentDidMount() {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      this.setState({
+        loginStatus: true
+      });
+    } else {
+      this.setState({
+        loginStatus: false
+      });
+    }
   }
   goHome = () => {
     this.props.history.push("/");
@@ -22,33 +49,140 @@ class Header extends React.Component {
   goLogin = () => {
     this.props.history.push("/login");
   };
+
+  popMenuBar = () => {
+    if (this.state.mode === false) {
+      this.setState({
+        mode: true,
+        film: true,
+        menu: true,
+        news: false,
+        house: false,
+        discover: false
+      });
+    } else if (this.state.mode === true) {
+      this.setState({
+        mode: false,
+        film: false,
+        menu: false,
+        news: false,
+        house: false,
+        discover: false,
+        movingNews: false,
+        movingDiscover: false,
+        movingHouse: false
+      });
+    }
+  };
+  popNewsBar = () => {
+    if (this.state.news === false) {
+      this.setState({
+        news: true,
+        house: false,
+        discover: false,
+        movingNews: true,
+        movingDiscover: false,
+        movingHouse: false
+      });
+    } else if (this.state.news === true) {
+      this.setState({
+        news: false,
+        movingNews: false,
+        movingHouse: false,
+        movingDiscover: false
+      });
+    }
+  };
+  popHouseBar = () => {
+    if (this.state.house === false) {
+      this.setState({
+        house: true,
+        news: false,
+        discover: false,
+        movingNews: false,
+        movingHouse: true,
+        movingDiscover: false
+      });
+    } else if (this.state.house === true) {
+      this.setState({
+        house: false,
+        movingNews: false,
+        movingHouse: false,
+        movingDiscover: false
+      });
+    }
+  };
+  popDiscoverBar = () => {
+    if (this.state.discover === false) {
+      this.setState({
+        discover: true,
+        news: false,
+        house: false,
+        movingNews: false,
+        movingHouse: false,
+        movingDiscover: true
+      });
+    } else if (this.state.discover === true) {
+      this.setState({
+        discover: false,
+        movingNews: false,
+        movingHouse: false,
+        movingDiscover: false
+      });
+    }
+  };
   //☞ 함수 들어갈 자리
   render() {
     //☞ 맵함수 구현할 자리
     return (
-      <HeaderDiv>
-        <OuterDiv>
-          <HeaderNaviDiv>
-            <MenuIconInput type="checkbox" id="MenuIcon"></MenuIconInput>
-            <MenuIconLabel for="MenuIcon">
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-              <MenuIconSpan></MenuIconSpan>
-            </MenuIconLabel>
-          </HeaderNaviDiv>
-          <HeaderLogoDiv click={this.goHome}>
-            <LogoImg src={Logo}></LogoImg>
-          </HeaderLogoDiv>
-          <HeaderLogin>LOGIN</HeaderLogin>
-        </OuterDiv>
-      </HeaderDiv>
+      <>
+        <HeaderDiv>
+          <OuterDiv>
+            <HeaderNaviDiv>
+              <MenuIconInput
+                type="checkbox"
+                id="MenuIcon"
+                onClick={this.popMenuBar}
+              ></MenuIconInput>
+              <MenuIconLabel htmlFor="MenuIcon">
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+                <MenuIconSpan></MenuIconSpan>
+              </MenuIconLabel>
+            </HeaderNaviDiv>
+            <HeaderLogoDiv click={this.goHome}>
+              <LogoImg src={Logo}></LogoImg>
+            </HeaderLogoDiv>
+            {this.state.loginStatus === true ? (
+              <HeaderLogin click={this.goLogin}>
+                <GiMagicLamp size="40" color="yellow" />
+              </HeaderLogin>
+            ) : (
+              <HeaderLogin click={this.goLogin}>LOGIN</HeaderLogin>
+            )}
+          </OuterDiv>
+        </HeaderDiv>
+        <Navigator
+          film={this.state.film}
+          menu={this.state.menu}
+          popNewsBar={this.popNewsBar}
+          news={this.state.news}
+          popHouseBar={this.popHouseBar}
+          house={this.state.house}
+          popDiscoverBar={this.popDiscoverBar}
+          discover={this.state.discover}
+          movingNews={this.state.movingNews}
+          movingHouse={this.state.movingHouse}
+          movingDiscover={this.state.movingDiscover}
+        ></Navigator>
+      </>
       //구현할 화면 태그 들어갈 자리
     );
   }
@@ -182,11 +316,15 @@ const MenuIconSpan = styled.span`
   border: none;
 `;
 const HeaderDiv = styled.div`
-  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0px solid gray;
+  position: absolute;
+  top: 20px;
+  z-index: 999;
 `;
 
 const OuterDiv = styled.div`
-  /* background-image: url("http://images.ctfassets.net/usf1vwtuqyxm/dpmDSBWkWGFebViZKJuG7/c488da0a5c57abcaf6dcade349d14347/Feature-Hub-Copy-compressor.png"); */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -219,6 +357,13 @@ const HeaderLogin = styled.div`
   text-align: right;
   margin-right: 100px;
   cursor: pointer;
+  font-family: Sofia Pro, serif;
+  font-size: 14px;
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1.07px;
 `;
 
 export default withRouter(Header);

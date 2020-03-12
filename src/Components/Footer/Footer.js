@@ -1,25 +1,23 @@
 import React from "react";
 // import "./Footer.scss";
-import styled, { createGlobalStyle } from "styled-components";
-import Global from "./Global";
+import styled from "styled-components";
 
 class Footer extends React.Component {
   constructor() {
     super();
     this.state = {
-      //☞ state값 들어갈 자리
+      //☞ state값 들어갈 자리df
     };
   } //☞ 함수 들어갈 자리
   render() {
     //☞ 맵함수 구현할 자리
     return (
       <>
-        <Global />
         <Outer>
           <FlexDiv>
             <CopyRightP>© Wizarding World Digital 2020</CopyRightP>
             <UnorderedList>
-              <List none>ABOUT US</List>
+              <List>ABOUT US</List>
               <List>PRESS</List>
               <List>FAQS</List>
               <List>TERMS & CONITIONS</List>
@@ -48,7 +46,11 @@ const Outer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  width: 100%;
   height: 159px;
+  position: absolute;
+  bottom: 0;
+  z-index: 4;
 `;
 
 const CopyRightP = styled.p`
