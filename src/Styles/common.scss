@@ -11,7 +11,13 @@
 }
 
 @font-face {
-  font-family: "Sofia Pro";
+  font-family: "Mason Sans Bold";
+  font-weight: 700;
+  src: url("./Font/MasonSansBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofia Pro Light";
   font-weight: 700;
   src: url("./Font/SofiaPro_Light.ttf") format("truetype");
 }
