@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Check } from "styled-icons/boxicons-regular";
 import { EyeOutline } from "styled-icons/evaicons-outline";
 
@@ -10,6 +10,10 @@ export default class StepTwo extends Component {
       email: "",
       verify: "",
       password: "",
+      emailError1: false,
+      emailError2: false,
+      emailError_same: false,
+      verifyError: false,
       following1: false,
       following2: false,
       button: false,
@@ -28,21 +32,56 @@ export default class StepTwo extends Component {
     );
   };
 
-  checkEmail = () => {
-    const { email } = this.state;
-    return (
-      email.length !== 0 &&
-      !(email.includes("@") && email.includes(".")) && (
-        <div>Invalid email format</div>
-      )
-    );
-  };
-
+  // 이메일 확인
   handleEmailCheck = () => {
-    console.log("ddddd");
-    // fetch로 이메일 유무 확인하기
+    fetch("http://52.78.241.65:8000/user/email-check", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.email
+      })
+    })
+      // .then(res => res.json())
+      .then(res => {
+        console.log("응답 도착", res);
+        if (res.message === "DUPLICATE_EMAIL") {
+          this.setState({
+            emailError1: true
+          });
+        } else {
+          this.setState({
+            emailError1: false
+          });
+        }
+        if (res.message === "INVALID_EMAIL") {
+          this.setState({
+            emailError2: true
+          });
+        } else {
+          this.setState({
+            emailError2: false
+          });
+        }
+      });
   };
 
+  // 이메일 같은지 확인
+  handleEmailVerify = () => {
+    const { email, verify } = this.state;
+    if (email !== verify) {
+      this.setState({
+        verifyError: true
+      });
+    } else {
+      this.setState({
+        verifyError: false
+      });
+    }
+  };
+
+  // 이메일 같은지 확인
   verifyEmail = () => {
     const { email, verify } = this.state;
     return email !== verify && <div>Emails don't match</div>;
@@ -102,7 +141,7 @@ export default class StepTwo extends Component {
     following1 && following2 && goNext();
   };
 
-  //password input태그 type 바꾸는 함수
+  //비밀번호 입력창 type 바꾸는 함수
   handlePW = () => {
     this.setState({
       show_pw: !this.state.show_pw
@@ -112,13 +151,15 @@ export default class StepTwo extends Component {
   render() {
     const {
       show_pw,
-      verify,
-      email,
+      emailError1,
+      emailError2,
+      verifyError,
       following1,
       following2,
       button
     } = this.state;
 
+    console.log(this.state.email);
     return (
       <Container>
         <Text>Create your account</Text>
@@ -129,14 +170,29 @@ export default class StepTwo extends Component {
               name="email"
               onChange={this.handleStepTwo}
               onBlur={this.handleEmailCheck}
+              emailError1={emailError1}
+              emailError2={emailError2}
             ></Input>
-            {this.checkEmail()}
+            {/* 이메일 입력창 오류 메시지 */}
+            {emailError1 && (
+              <ErrorMessage>
+                Looks like you already have a Wizarding
+                <br />
+                Passport with this email.<a href="/login">Login</a> instead?
+              </ErrorMessage>
+            )}
+            {emailError2 && <ErrorMessage>Invalid email format</ErrorMessage>}
           </InputContainer>
 
           <InputContainer>
             <Label>VERIFY EMAIL ADDRESS</Label>
-            <Input name="verify" onChange={this.handleStepTwo}></Input>
-            {email && verify && this.verifyEmail()}
+            <Input
+              name="verify"
+              onChange={this.handleStepTwo}
+              onBlur={this.handleEmailVerify}
+              verifyError={verifyError}
+            ></Input>
+            {verifyError && <ErrorMessage>Emails don't match</ErrorMessage>}
           </InputContainer>
 
           <InputContainer relative>
@@ -154,7 +210,6 @@ export default class StepTwo extends Component {
           {/* check 첫번째 */}
           <CheckBox relative>
             <CheckIcon following1={following1} />
-
             <CheckTxt following1={following1}>
               A minimum of 8 characters
             </CheckTxt>
@@ -162,7 +217,6 @@ export default class StepTwo extends Component {
           {/* check 두번째 */}
           <CheckBox relative>
             <CheckIcon following2={following2} />
-
             <CheckTxt following2={following2}>
               A number and combination of
               <br />
@@ -198,8 +252,9 @@ const Container = styled.div`
 const Text = styled.div`
   font-size: 36px;
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0 40px;
   font-family: Butler;
+  line-height: 55px;
 `;
 
 const AllInputContainer = styled.div`
@@ -210,11 +265,6 @@ const InputContainer = styled.div`
   margin: 20px 0 32px;
 
   position: ${props => props.relative && "relative"};
-
-  div {
-    font-size: 14px;
-    color: #ff6e6e;
-  }
 `;
 
 const Label = styled.label`
@@ -239,12 +289,30 @@ const Input = styled.input`
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
 
+  border-color: ${props => props.emailError1 && "#ff6e6e"};
+  border-color: ${props => props.emailError2 && "#ff6e6e"};
+  border-color: ${props => props.verifyError && "#ff6e6e"};
+
   &:focus {
     border: 1px solid rgba(151, 151, 151, 0.7);
     transition: border 0.3s ease-in-out;
     transition-property: border;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  font-family: "Sofia Pro Regular";
+  font-size: 14px;
+  color: #ff6e6e;
+
+  /* color: ${props => props.emailError && "#ff6e6e"};
+  color: ${props => props.verifyError && "#ff6e6e"}; */
+
+  a {
+    text-decoration: underline;
+    color: #ff6e6e;
   }
 `;
 
@@ -264,7 +332,12 @@ const Button = styled.button`
   opacity: 0.3;
   outline: none;
 
-  opacity: ${props => props.button && "1"};
+  ${props =>
+    props.button &&
+    css`
+      opacity: 1;
+      cursor: pointer;
+    `}
 `;
 
 const Toggle = styled(EyeOutline)`
@@ -308,6 +381,19 @@ const CheckIcon = styled(Check)`
   position: absolute;
   left: 0;
   top: 0;
-  color: ${props => props.following1 && "#ffffff"};
-  color: ${props => props.following2 && "#ffffff"};
+  display: none;
+
+  ${props =>
+    props.following1 &&
+    css`
+      display: block;
+      color: #ffffff;
+    `}
+
+  ${props =>
+    props.following2 &&
+    css`
+      display: block;
+      color: #ffffff;
+    `}
 `;

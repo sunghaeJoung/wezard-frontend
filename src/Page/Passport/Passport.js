@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import key from "../../Images/Key.svg";
+import Header from "../../Components/Header/Header";
+import hogwart from "../../Images/hogwart.svg";
 import diamond from "../../Images/Diamond.svg";
 
 export default class Passport extends Component {
@@ -9,30 +10,20 @@ export default class Passport extends Component {
       <PassportComponent>
         <Header></Header>
         <Container>
-          <Video
-            autoPlay
-            loop
-            playsinline
-            src="https://my.wizardingworld.com/static/media/starsAboutPassport1440X820.43f19c59.mp4"
-          ></Video>
-          <Register>
-            <img src={key} alt="key"></img>
-            <Text>
-              <TextMain>
-                Your Wizarding
-                <br /> Passport will be the
-                <br /> key
-              </TextMain>
-              <TextSub>Registser for your new magical profile</TextSub>
-            </Text>
-            <ButtonContainer>
-              <Button>CREATE PASSPORT</Button>
-              <Button account>USE POTTERMORE ACCOUNT</Button>
-            </ButtonContainer>
-            <Diamond>
-              <img src={diamond} alt="diamond"></img>
-            </Diamond>
-          </Register>
+          <PassportText>Wizarding Passport</PassportText>
+          <Section>
+            <HogwartImg src={hogwart} alt={hogwart}></HogwartImg>
+            <UserNameContainer>
+              {/* 백한테 api 유저정보 받아와야해 */}
+              <UserName>joung</UserName>
+              <UserName>sunghae</UserName>
+            </UserNameContainer>
+            <Button>DISCOVER YOUR HOUSE</Button>
+          </Section>
+          <SectionButtom>
+            <Text>FAVORITES</Text>
+            <img src={diamond} alt="diamond"></img>
+          </SectionButtom>
         </Container>
       </PassportComponent>
     );
@@ -42,83 +33,83 @@ export default class Passport extends Component {
 const PassportComponent = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #10141b;
-`;
-
-const Header = styled.div`
-  width: 100%;
-  height: 132px;
-  border-bottom: 1px solid white;
-  position: absolute;
-  z-index: 99;
+  color: #ffffff;
+  font-family: "Bluu Next";
+  background-color: #393653;
+  background-image: url(https://my.wizardingworld.com/static/media/bg.351c8f53.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Container = styled.div`
-  max-height: 893px;
-  min-height: 740px;
-`;
-
-const Video = styled.video`
-  width: 100vw;
-  position: absolute;
-  z-index: 0;
-`;
-
-const Register = styled.div`
+  height: 100%;
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding-top: 220px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const PassportText = styled.div`
+  font-size: 24px;
+  line-height: 32px;
+  margin-top: 100px;
+`;
+
+const Section = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const HogwartImg = styled.image`
+  width: 65px;
+  height: 75px;
+  padding: 20px 10px;
+  background-color: white;
+`;
+
+const UserNameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+`;
+
+const UserName = styled.div`
+  font-size: 75.675px;
+`;
+
+const Button = styled.button`
+  width: 219.5px;
+  height: 50px;
+  color: #ffffff;
+  background-color: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 30px;
+  margin: 20px 10px;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px #faf6f0;
+    transition: background-color 0.3s ease-in-out;
+  }
+`;
+
+const SectionButtom = styled.div`
+  /* height: 76px; */
+  margin-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   img {
-    width: 106px;
-    z-index: 100;
+    margin: 20px 0;
   }
 `;
 
 const Text = styled.div`
-  color: #faf6f0;
-  z-index: 100;
-  text-align: center;
-`;
-
-const TextMain = styled.div`
-  font-size: 54px;
-  font-family: "Bluu Next";
-  margin-top: 20px;
-  margin-bottom: 36.18px;
-  padding: 0 10px;
-`;
-
-const TextSub = styled.div`
-  font-size: 22px;
-`;
-
-const ButtonContainer = styled.div`
-  margin-top: 32px;
-  z-index: 100;
-`;
-
-const Button = styled.button`
-  width: 280px;
-  font-size: 12px;
-  font-weight: 700;
-  margin-top: 27px;
-  padding: 18px 31px;
-  border-radius: 30px;
-  outline: none;
-  cursor: pointer;
-
-  margin-left: ${props => props.account && "10px"};
-  color: ${props => props.account && "#ffffff"};
-  background-color: ${props => props.account && "transparent"};
-`;
-
-const Diamond = styled.div`
-  img {
-    width: 30px;
-    height: 60px;
-    margin: 20px auto;
-    z-index: 100;
-  }
+  font-size: 20px;
+  font-family: "Mason Sans Bold";
 `;

@@ -1,6 +1,7 @@
 import React from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 
 class Navigator extends React.Component {
   constructor() {
@@ -14,7 +15,7 @@ class Navigator extends React.Component {
   };
 
   goHogwarts = () => {
-    this.props.history.push("/hogwarts");
+    this.props.history.push("/sorting");
   };
   goFeatures = () => {
     this.props.history.push("/features");
@@ -379,4 +380,4 @@ const NaviSpanRow = styled.span`
   align-items: center;
 `;
 
-export default Navigator;
+export default withRouter(Navigator);

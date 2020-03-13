@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import logo from "Images/logo.svg";
 import diamond from "Images/Diamond.svg";
 import styled from "styled-components";
+import Header from "../../../Components/Header/Header";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -11,7 +12,7 @@ class Top extends Component {
       <>
         <TopBgImg>
           <BgImgCover />
-          <Nav></Nav>
+          <Header />
           <Middle>
             <Logo src={logo} alt="" />
             <Article>
@@ -45,12 +46,12 @@ const BgImgCover = styled.div`
   z-index: 1;
 `;
 
-const Nav = styled.div`
-  width: 100%;
-  height: 60px;
-  padding-top: 28px;
-  border: 1px solid white;
-`;
+// const Nav = styled.div`
+//   width: 100%;
+//   height: 60px;
+//   padding-top: 28px;
+//   border: 1px solid white;
+// `;
 
 const TopBgImg = styled.div`
   position: relative;
@@ -85,6 +86,7 @@ const Middle = styled.div`
   align-items: center;
   margin: auto;
   /* z-index: 1; */
+  padding-top: 125px;
 `;
 
 const Logo = styled.img`

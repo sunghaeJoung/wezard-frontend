@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Top from "./Top/Top";
 import Middle from "./Middle/Middle";
 import Bottom from "./Bottom/Bottom";
+import Footer from "../../Components/Footer/Footer";
 import styled from "styled-components";
 
 class News extends Component {
@@ -19,6 +20,7 @@ class News extends Component {
           <Middle />
           <Bottom />
         </WhiteBg>
+        <Footer />
       </NewsWrapper>
     );
   }

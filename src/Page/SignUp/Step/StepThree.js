@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export default class StepThree extends Component {
   constructor(props) {
@@ -32,9 +32,9 @@ export default class StepThree extends Component {
   };
 
   finalStep = () => {
-    fetch("http://10.58.2.253:8000/user/sign-up", {
+    fetch("http://52.78.241.65:8000/user/sign-up", {
       method: "POST",
-      mode: "no-cors",
+      // mode: "no-cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: sessionStorage.getItem("email"),
@@ -45,11 +45,11 @@ export default class StepThree extends Component {
         is_send_newsletter: "True"
       })
     })
-      // .then(response => response.json())
+      // .then(res => res.json())
       .then(res => {
         console.log("res 도착", res);
         if (res.status === 200) {
-          this.state.goNext();
+          this.props.goNext();
         }
       })
       .catch(function(err) {
@@ -108,8 +108,9 @@ const Container = styled.div`
 const Text = styled.div`
   font-size: 36px;
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0 20px;
   font-family: Butler;
+  line-height: 55px;
 `;
 
 const AllInputContainer = styled.div`
@@ -169,7 +170,12 @@ const Button = styled.button`
   opacity: 0.3;
   outline: none;
 
-  opacity: ${props => props.button && "1"};
+  ${props =>
+    props.button &&
+    css`
+      opacity: 1;
+      cursor: pointer;
+    `}
 `;
 
 const Letter = styled.img`
