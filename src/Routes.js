@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./Page/Main/Main";
 import Login from "./Page/Login/Login";
-import SignUp from "./Page/Reg/Reg.js";
+import SignUp from "./Page/SignUp/SignUp";
 import Passport from "./Page/Passport/Passport";
 import "./Styles/common.scss";
 
