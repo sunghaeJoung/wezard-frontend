@@ -1,32 +1,30 @@
 import React, { Component } from "react";
 import Top from "./Top/Top";
-import SlickSlider from "./Slider/SlickSlider";
 import Middle from "./Middle/Middle";
-import LatestNews from "./Bottom/LatestNews";
-import Features from "./Bottom/Features";
+import Bottom from "./Bottom/Bottom";
 import styled from "styled-components";
 
-class Main extends Component {
+class News extends Component {
   render() {
     return (
-      <MainWrapper>
+      <NewsWrapper>
         <Video
           autoPlay
           loop
           playsinline
           src="https://my.wizardingworld.com/static/media/starsAboutPassport1440X820.43f19c59.mp4"
-        ></Video>
+        />
         <Top />
-        <SlickSlider />
-        <Middle />
-        <LatestNews />
-        <Features />
-      </MainWrapper>
+        <WhiteBg>
+          <Middle />
+          <Bottom />
+        </WhiteBg>
+      </NewsWrapper>
     );
   }
 }
 
-const MainWrapper = styled.div``;
+const NewsWrapper = styled.div``;
 
 const Video = styled.video`
   position: fixed;
@@ -37,4 +35,11 @@ const Video = styled.video`
   min-height: 100%;
 `;
 
-export default Main;
+const WhiteBg = styled.div`
+  background-color: #faf6f0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+`;
+
+export default News;

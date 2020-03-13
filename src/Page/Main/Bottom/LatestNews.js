@@ -1,16 +1,38 @@
 import React, { Component } from "react";
 import LatestNewsBox from "./LatestNewsBox";
-import LatestNewsData from "./LatestNewsData";
 import styled from "styled-components";
 
 class LatestNews extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      LatestNewsData: []
+    };
+  }
+
+  componentDidMount() {
+    // fetch("http://localhost:3000/data/LatestNewsData.json", {
+    //   method: "GET"
+    // })
+    fetch("http://localhost:3000/data/LatestNewsData.json")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          LatestNewsData: res.LatestNewsData
+        });
+      });
+  }
+
   render() {
     return (
       <LatestNewsWrapper>
         <Category>Latest news</Category>
         <CardWrapper>
-          {LatestNewsData.map(item => {
-            return <LatestNewsBox img={item.img} text={item.text} />;
+          {this.state.LatestNewsData.map(item => {
+            return (
+              <LatestNewsBox thumbnail={item.thumbnail} title={item.title} />
+            );
           })}
         </CardWrapper>
         <BottomWrapper>
@@ -36,8 +58,8 @@ const Category = styled.div`
   margin-bottom: 40px;
   font-family: "Bluu Next";
   font-size: 48px;
-  font-weight: 700;
-  line-height: 1.35;
+  /* font-weight: 700;
+  line-height: 1.35; */
   color: #fff;
 `;
 
@@ -47,51 +69,6 @@ const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
-// const Card = styled.div`
-//   position: relative;
-//   border: 1px solid blue;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   margin: 0 auto;
-//   width: 100%;
-//   max-width: 380px;
-//   min-height: 352px;
-// `;
-
-// const Picture = styled.img`
-//   position: absolute;
-//   width: 100%;
-//   max-width: 440px;
-//   left: 0;
-//   top: 0;
-// `;
-
-// const Border = styled.span`
-//   position: absolute;
-//   margin-top: 10px;
-//   width: 360px;
-//   height: 340px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border: 1px solid #696b78;
-// `;
-
-// const Text = styled.div`
-//   position: absolute;
-//   width: 100%;
-//   max-width: 288px;
-//   align-items: center;
-//   object-fit: contain;
-//   font-family: "Sofia Pro Bold";
-//   font-weight: 400;
-//   font-size: 20px;
-//   line-height: 24px;
-//   color: #fff;
-// `;
 
 const BottomWrapper = styled.div`
   display: flex;

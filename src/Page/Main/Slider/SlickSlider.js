@@ -1,12 +1,32 @@
 import React, { Component } from "react";
 import SliderBox from "./SliderBox";
-import SliderData from "./SliderData";
 import Slider from "react-slick";
 import styled from "styled-components";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
-export default class MultipleItems extends Component {
+class SlickSlider extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      SliderData: []
+    };
+  }
+
+  componentDidMount() {
+    // fetch("http://localhost:3000/data/FeaturesData.json", {
+    //   method: "GET"
+    // })
+    fetch("http://localhost:3000/data/SliderData.json")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          SliderData: res.SliderData
+        });
+      });
+  }
+
   render() {
     const settings = {
       dots: true,
@@ -43,7 +63,7 @@ export default class MultipleItems extends Component {
     return (
       <SliderWrapper>
         <Slider {...settings}>
-          {SliderData.map(item => {
+          {this.state.SliderData.map(item => {
             return (
               <SliderBox
                 img={item.img}
@@ -66,3 +86,5 @@ const SliderWrapper = styled.div`
     background-color: none !important;
   }
 `;
+
+export default SlickSlider;
