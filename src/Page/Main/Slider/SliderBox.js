@@ -17,6 +17,7 @@ const SliderBox = props => {
 
 const DivWrapper = styled.div`
   margin: 30px;
+  cursor: pointer;
   /* position: relative; */
 `;
 

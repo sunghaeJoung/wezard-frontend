@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Top from "./Top/Top";
-import Slider from "./Slider/Slider";
+import SlickSlider from "./Slider/SlickSlider";
 import Middle from "./Middle/Middle";
 import LatestNews from "./Bottom/LatestNews";
+import Features from "./Bottom/Features";
 import styled from "styled-components";
 
 class Main extends Component {
@@ -16,9 +17,10 @@ class Main extends Component {
           src="https://my.wizardingworld.com/static/media/starsAboutPassport1440X820.43f19c59.mp4"
         ></Video>
         <Top />
-        <Slider />
+        <SlickSlider />
         <Middle />
         <LatestNews />
+        <Features />
       </MainWrapper>
     );
   }

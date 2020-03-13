@@ -5,9 +5,9 @@ const LatestNewsBox = props => {
   return (
     <>
       <Card>
-        <Picture src={props.img} alt="" />
+        <Thumbnail src={props.thumbnail} alt="" />
         <Border></Border>
-        <Text>{props.text}</Text>
+        <Title>{props.title}</Title>
       </Card>
     </>
   );
@@ -23,17 +23,18 @@ const Card = styled.div`
   width: 100%;
   max-width: 380px;
   min-height: 352px;
+  cursor: pointer;
   /* border: 1px solid blue; */
 `;
 
-const Picture = styled.img`
+const Thumbnail = styled.img`
   position: absolute;
   width: 100%;
   max-width: 440px;
   left: 0;
   top: 0;
   opacity: 0.8;
-  clip-path: ellipse(380px 150px at 0% 20%);
+  clip-path: ellipse(500px 150px at 0% 20%);
 `;
 
 const Border = styled.span`
@@ -47,7 +48,7 @@ const Border = styled.span`
   border: 1px solid #696b78;
 `;
 
-const Text = styled.div`
+const Title = styled.div`
   position: absolute;
   width: 100%;
   max-width: 288px;
