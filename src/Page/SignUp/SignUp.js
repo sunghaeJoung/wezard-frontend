@@ -3,6 +3,7 @@ import styled from "styled-components";
 import StepOne from "./Step/StepOne";
 import StepTwo from "./Step/StepTwo";
 import StepThree from "./Step/StepThree";
+import Finish from "./Step/Finish";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
@@ -10,8 +11,7 @@ export default class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 1,
-      birth: ""
+      step: 2
     };
   }
 
@@ -21,29 +21,25 @@ export default class SignUp extends Component {
     });
   };
 
-  goNext = value => {
-    this.setState(
-      {
-        step: this.state.step + 1,
-        birth: value
-      },
-      () => {
-        console.log("전달받은 birth", value, this.state.birth);
-      }
-    );
+  goNext = () => {
+    this.setState({
+      step: this.state.step + 1
+    });
   };
 
   render() {
     const obj = {
-      1: <StepOne goNext={value => this.goNext(value)} />,
+      1: <StepOne goNext={this.goNext} />,
       2: <StepTwo goNext={this.goNext} />,
-      3: <StepThree />
+      3: <StepThree goNext={this.goNext} handleFetch={this.handleFetch} />,
+      4: <Finish />
     };
 
     const { step } = this.state;
+
     return (
       <SignUpComponent>
-        <Header>
+        <Header hide={step}>
           {step !== 1 && (
             <Btn left onClick={this.goBack}>
               <IoIosArrowRoundBack style={{ width: "35px", height: "35px" }} />
@@ -54,7 +50,7 @@ export default class SignUp extends Component {
             <Number>01</Number>
             <ProgressBar>
               <Line step={step}></Line>
-              <Line></Line>
+              <Line step={step}></Line>
               <Line></Line>
             </ProgressBar>
             <Number>03</Number>
@@ -84,6 +80,14 @@ const Header = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${props => {
+    if (props.hide === 4) {
+      return `
+      display:none
+      `;
+    }
+  }}
 `;
 
 const Step = styled.div`
@@ -94,13 +98,14 @@ const Step = styled.div`
 const Number = styled.div`
   color: white;
   font-size: 14px;
+  font-family: "Sofia Pro Bold";
 `;
 
 const ProgressBar = styled.ul`
   width: 180px;
   height: 2px;
   display: flex;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 0;
   padding: 0 10px;
   //   flex: 5 1;
