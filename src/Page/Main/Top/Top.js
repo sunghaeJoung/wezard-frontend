@@ -5,7 +5,7 @@ import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-class MainTop extends Component {
+class Top extends Component {
   render() {
     return (
       <>
@@ -54,9 +54,9 @@ const TopBgImg = styled.div`
   background-image: url("https://images.ctfassets.net/usf1vwtuqyxm/1C7Sv1wIFHPt6u7RMWWfHd/25589514b25f1d5be5206c77d06b5fbc/Beedle_the_Bard_Article05.jpg?w=2880&h=1740&fit=fill&fm=webp");
   background-size: cover;
   background-position: center center;
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
-  max-width: 100vw;
+  /* max-width: 100vw; */
   z-index: 0;
   justify-content: center;
   /* z-index: 999; */
@@ -149,4 +149,4 @@ const Diamond = styled.image`
   }
 `;
 
-export default MainTop;
+export default Top;

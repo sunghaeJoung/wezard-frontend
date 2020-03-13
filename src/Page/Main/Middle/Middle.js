@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-class MainMiddle extends Component {
+class Middle extends Component {
   render() {
     return (
       <MainMiddleCover>
@@ -66,6 +66,7 @@ class MainMiddle extends Component {
             src="https://assets.wizardingworld.com/frontend/_next/static/images/rectangle-ac5794a87516446dab1c31c0c3b02996.jpg.webp"
             alt=""
           ></ArticleImg>
+          <Gradient />
         </PartWrapper>
       </MainMiddleCover>
     );
@@ -76,9 +77,9 @@ const MainMiddleCover = styled.div`
   position: relative;
   width: 100%;
   height: auto;
-  /* display: block; */
-  border: 3px solid red;
   margin-top: 60px;
+  /* border: 3px solid red; */
+  /* display: block; */
 `;
 
 const PartWrapper = styled.div`
@@ -95,8 +96,8 @@ const PartWrapper = styled.div`
   max-width: 1440px;
   margin: auto;
   height: 580px;
-  border: 1px solid yellow;
   margin: 40px auto;
+  /* border: 1px solid yellow; */
 `;
 
 const ArticleImg = styled.img`
@@ -118,7 +119,6 @@ const Gradient = styled.div`
   z-index: 2;
   position: absolute;
   left: 430px;
-  border: 1px solid orange;
   width: 33%;
   height: 100%;
   background-image: linear-gradient(
@@ -126,15 +126,16 @@ const Gradient = styled.div`
     rgba(16, 20, 27, 1),
     rgba(16, 20, 27, 0) 98%
   );
+  /* border: 1px solid orange; */
 `;
 
 const TextWrapper = styled.div`
   position: absolute;
   width: 33%;
   float: left;
-  border: 1px solid pink;
   padding-left: 10%;
   z-index: 3;
+  /* border: 1px solid pink; */
 `;
 
 const SubTitle = styled.div`
@@ -205,8 +206,8 @@ const PartWrapperMid = styled.div`
   max-width: 1280px;
   margin: auto;
   height: 1000px;
-  border: 1px solid yellow;
   margin: 40px auto;
+  /* border: 1px solid yellow; */
 `;
 
 const MidBgImg = styled.img`
@@ -249,9 +250,9 @@ const TextWrapperMid = styled.div`
   position: absolute;
   width: 33%;
   right: 0;
-  border: 1px solid pink;
-  /* padding-left: 10%; */
   z-index: 3;
+  /* border: 1px solid pink; */
+  /* padding-left: 10%; */
 `;
 
 const SubTitleMid = styled.div`
@@ -294,4 +295,4 @@ const ButtonMid = styled.button`
   opacity: 0.3;
 `;
 
-export default MainMiddle;
+export default Middle;
