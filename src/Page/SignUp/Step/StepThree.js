@@ -2,7 +2,63 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class StepThree extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      birth: "",
+      email: "",
+      password: "",
+      first_name: "",
+      last_name: "",
+      button: false
+    };
+  }
+
+  handleStepOne = e => {
+    const { first_name, last_name } = this.state;
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+
+    if (first_name && last_name) {
+      this.setState({
+        button: true
+      });
+    } else {
+      this.setState({
+        button: false
+      });
+    }
+  };
+
+  finalStep = () => {
+    fetch("http://10.58.2.253:8000/user/sign-up", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: sessionStorage.getItem("email"),
+        password: sessionStorage.getItem("password"),
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        date_of_birth: sessionStorage.getItem("birth"),
+        is_send_newsletter: "True"
+      })
+    })
+      // .then(response => response.json())
+      .then(res => {
+        console.log("res 도착", res);
+        if (res.status === 200) {
+          this.state.goNext();
+        }
+      })
+      .catch(function(err) {
+        console.log("Request failed", err);
+      });
+  };
+
   render() {
+    const { button } = this.state;
     return (
       <Container last>
         <Letter src="https://my.wizardingworld.com/static/media/envelope.c0b8868a.png"></Letter>
@@ -12,15 +68,22 @@ export default class StepThree extends Component {
         </Text>
         <AllInputContainer>
           <InputContainer>
-            <Label>First Name</Label>
-            <Input></Input>
+            <Label>FIRST NAME</Label>
+            <Input name="first_name" onChange={this.handleStepOne}></Input>
           </InputContainer>
           <InputContainer>
-            <Label>Last Name</Label>
-            <Input></Input>
+            <Label>LAST NAME</Label>
+            <Input name="last_name" onChange={this.handleStepOne}></Input>
           </InputContainer>
         </AllInputContainer>
-        <Button>CONFIRM</Button>
+        <Button
+          button={button}
+          onClick={() => {
+            this.finalStep();
+          }}
+        >
+          CONFIRM
+        </Button>
       </Container>
     );
   }
@@ -61,8 +124,8 @@ const InputContainer = styled.div`
 
 const Label = styled.div`
   font-size: 12px;
-  font-weight: 700;
   letter-spacing: 1.5px;
+  font-family: "Sofia Pro Bold";
 `;
 
 const Input = styled.input`
@@ -95,8 +158,8 @@ const Input = styled.input`
 const Button = styled.button`
   width: 100%;
   height: 48px;
+  font-family: "Sofia Pro Bold";
   font-size: 14px;
-  font-weight: 700;
   letter-spacing: 1.1px;
   color: #3a372e;
   border: none;
@@ -106,7 +169,7 @@ const Button = styled.button`
   opacity: 0.3;
   outline: none;
 
-  opacity: ${props => props.button1 && "1"};
+  opacity: ${props => props.button && "1"};
 `;
 
 const Letter = styled.img`
