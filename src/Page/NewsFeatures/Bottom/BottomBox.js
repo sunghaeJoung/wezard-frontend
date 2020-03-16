@@ -19,7 +19,7 @@ const BottomBox = props => {
 };
 
 const CardWrapper = styled.div`
-  width: 433px;
+  max-width: 433px;
   height: 457px;
   letter-spacing: normal;
   flex-wrap: wrap;
