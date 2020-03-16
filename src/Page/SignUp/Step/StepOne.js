@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export default class StepOne extends Component {
   constructor(props) {
@@ -88,8 +88,9 @@ const Container = styled.div`
 const Text = styled.div`
   font-size: 36px;
   text-align: center;
-  margin: 20px 0;
+  margin: 20px 0 40px;
   font-family: Butler;
+  line-height: 55px;
 `;
 
 const AllInputContainer = styled.div`
@@ -149,5 +150,10 @@ const Button = styled.button`
   opacity: 0.3;
   outline: none;
 
-  opacity: ${props => props.button && "1"};
+  ${props =>
+    props.button &&
+    css`
+      opacity: 1;
+      cursor: pointer;
+    `}
 `;

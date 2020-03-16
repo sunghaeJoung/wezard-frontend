@@ -4,16 +4,20 @@ import StepOne from "./Step/StepOne";
 import StepTwo from "./Step/StepTwo";
 import StepThree from "./Step/StepThree";
 import Finish from "./Step/Finish";
-import { IoIosClose } from "react-icons/io";
-import { IoIosArrowRoundBack } from "react-icons/io";
+import { Close } from "styled-icons/evaicons-solid";
+import { ArrowBack } from "styled-icons/evaicons-solid";
 
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      step: 2
+      step: 1
     };
   }
+
+  goToMain = () => {
+    this.props.history.push("/");
+  };
 
   goBack = () => {
     this.setState({
@@ -40,24 +44,17 @@ export default class SignUp extends Component {
     return (
       <SignUpComponent>
         <Header hide={step}>
-          {step !== 1 && (
-            <Btn left onClick={this.goBack}>
-              <IoIosArrowRoundBack style={{ width: "35px", height: "35px" }} />
-            </Btn>
-          )}
-
+          {step !== 1 && <ArrowIcon />}
           <Step>
             <Number>01</Number>
             <ProgressBar>
-              <Line step={step}></Line>
-              <Line step={step}></Line>
+              <Line></Line>
+              <Line></Line>
               <Line></Line>
             </ProgressBar>
             <Number>03</Number>
           </Step>
-          <Btn right>
-            <IoIosClose style={{ width: "35px", height: "35px" }} />
-          </Btn>
+          <CloseIcon onClick={this.goToMain} />
         </Header>
         {/* 회원가입 단계별 컴포넌트  */}
         {obj[step]}
@@ -108,7 +105,6 @@ const ProgressBar = styled.ul`
   margin-top: 10px;
   margin-bottom: 0;
   padding: 0 10px;
-  //   flex: 5 1;
 `;
 
 const Line = styled.li`
@@ -123,26 +119,35 @@ const Line = styled.li`
     if (props.step === 1) {
       return `
             background-color: #fff;
-  &:after {
-    position: absolute;
-    width: 10px;
-    height: 4px;
-    right: 0;
-    top: -1px;
-    content: "";
-    filter: blur(1px);
-    background-image: linear-gradient(90deg, hsla(0, 0%, 100%, 0), #fff);
-  }
+  // &:after {
+  //   position: absolute;
+  //   width: 10px;
+  //   height: 4px;
+  //   right: 0;
+  //   top: -1px;
+  //   content: "";
+  //   filter: blur(1px);
+  //   background-image: linear-gradient(90deg, hsla(0, 0%, 100%, 0), #fff);
+  // }
           `;
     }
   }}
 `;
 
-const Btn = styled.div`
-  cursor: pointer;
-  position: absolute;
+const ArrowIcon = styled(ArrowBack)`
+  width: 25px;
+  height: auto;
   color: white;
+  position: absolute;
+  left: 34px;
+  cursor: pointer;
+`;
 
-  left: ${props => props.left && "34px"};
-  right: ${props => props.right && "34px"};
+const CloseIcon = styled(Close)`
+  width: 28px;
+  height: 28px;
+  color: white;
+  position: absolute;
+  right: 34px;
+  cursor: pointer;
 `;

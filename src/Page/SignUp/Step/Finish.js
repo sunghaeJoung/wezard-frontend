@@ -24,7 +24,7 @@ const FinishComponent = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 100px;
+  padding-top: 132px;
   img {
     width: 154px;
   }

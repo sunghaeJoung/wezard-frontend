@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header from "../../../Components/Header/Header";
 import diamond from "Images/Diamond.svg";
 import styled from "styled-components";
 
@@ -8,7 +9,7 @@ class Top extends Component {
       <>
         <NewsTop>
           <BgImg>
-            <Nav />
+            <Header />
             <TextWrapper>
               <Title>News</Title>
               <Article>
@@ -41,13 +42,9 @@ const BgImg = styled.div`
   min-height: 400px;
   max-height: 100vh;
   z-index: 0;
-`;
-
-const Nav = styled.div`
-  width: 100%;
-  height: 60px;
-  padding-top: 28px;
-  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TextWrapper = styled.div`
@@ -56,8 +53,6 @@ const TextWrapper = styled.div`
   align-items: center;
   text-align: center;
   color: #ffffff;
-  justify-content: center;
-  height: 100%;
 `;
 
 const Title = styled.h1`

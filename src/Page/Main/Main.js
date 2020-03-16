@@ -4,6 +4,7 @@ import SlickSlider from "./Slider/SlickSlider";
 import Middle from "./Middle/Middle";
 import LatestNews from "./Bottom/LatestNews";
 import Features from "./Bottom/Features";
+import Footer from "../../Components/Footer/Footer";
 import styled from "styled-components";
 
 class Main extends Component {
@@ -21,6 +22,7 @@ class Main extends Component {
         <Middle />
         <LatestNews />
         <Features />
+        <Footer />
       </MainWrapper>
     );
   }

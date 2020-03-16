@@ -42,14 +42,14 @@ const Outer = styled.div`
   /* align-items: center; */
   font-size: 10px;
   /* margin: 20px auto; */
-  background-color: #10141b;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   width: 100%;
   height: 159px;
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
+  border-top: 1px solid #242633;
   z-index: 4;
 `;
 

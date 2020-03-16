@@ -9,6 +9,8 @@ import Login from "./Page/Login/Login";
 import SignUp from "./Page/SignUp/SignUp";
 import Passport from "./Page/Passport/Passport";
 import Test from "./Page/NaviTest/Test";
+import AboutPassport from "./Page/Passport/AboutPassport";
+import Sorting from "./Page/Sorting/Sorting";
 import "./Styles/common.scss";
 
 export default class Routes extends React.Component {
@@ -25,6 +27,8 @@ export default class Routes extends React.Component {
           <Route exact path="/passport" component={Passport} />
           <Route exact path="/news" component={News} />
           <Route exact path="/test" component={Test} />
+          <Route exact path="/about-passport" component={AboutPassport} />
+          <Route exact path="/sorting" component={Sorting} />
         </Switch>
       </Router>
     );
