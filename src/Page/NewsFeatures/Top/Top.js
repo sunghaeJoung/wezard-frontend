@@ -56,12 +56,14 @@ const TextWrapper = styled.div`
   align-items: center;
   text-align: center;
   color: #ffffff;
-  margin-top: 120px;
+  justify-content: center;
+  height: 100%;
 `;
 
 const Title = styled.h1`
   font-family: "Bluu Next";
   font-size: 60px;
+  margin-top: 0px;
 `;
 
 const Article = styled.div`
