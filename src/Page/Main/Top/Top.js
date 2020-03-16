@@ -9,34 +9,41 @@ class Top extends Component {
   render() {
     return (
       <>
-        <BgCover>
-          <TopBgImg>
-            <Nav></Nav>
-            <Middle>
-              <Logo src={logo} alt="" />
-              <Article>
-                <Title>
-                  New audiobook <br></br>The Tales of Beedle the Bard is coming
-                  soon
-                </Title>
-                <Note>
-                  The cream of Wizarding World talent, from Noma Dumezweni to
-                  Jude Law, have joined forces to tell the stories of Beedle the
-                  Bard for the first time in audio, in support of J.K. Rowling’s
-                  charity Lumos.
-                </Note>
-                <Button>READ MORE</Button>
-                <Diamond>
-                  <img src={diamond} alt="diamond"></img>
-                </Diamond>
-              </Article>
-            </Middle>
-          </TopBgImg>
-        </BgCover>
+        <TopBgImg>
+          <BgImgCover />
+          <Nav></Nav>
+          <Middle>
+            <Logo src={logo} alt="" />
+            <Article>
+              <Title>
+                New audiobook <br></br>The Tales of Beedle the Bard is coming
+                soon
+              </Title>
+              <Note>
+                The cream of Wizarding World talent, from Noma Dumezweni to Jude
+                Law, have joined forces to tell the stories of Beedle the Bard
+                for the first time in audio, in support of J.K. Rowling’s
+                charity Lumos.
+              </Note>
+              <Button>READ MORE</Button>
+              <Diamond>
+                <img src={diamond} alt="diamond"></img>
+              </Diamond>
+            </Article>
+          </Middle>
+        </TopBgImg>
       </>
     );
   }
 }
+
+const BgImgCover = styled.div`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+`;
 
 const Nav = styled.div`
   width: 100%;
@@ -45,12 +52,8 @@ const Nav = styled.div`
   border: 1px solid white;
 `;
 
-const BgCover = styled.div`
-  /* border: 1px solid yellow; */
-  /* height: 2000px; */
-`;
-
 const TopBgImg = styled.div`
+  position: relative;
   background-image: url("https://images.ctfassets.net/usf1vwtuqyxm/1C7Sv1wIFHPt6u7RMWWfHd/25589514b25f1d5be5206c77d06b5fbc/Beedle_the_Bard_Article05.jpg?w=2880&h=1740&fit=fill&fm=webp");
   background-size: cover;
   background-position: center center;
