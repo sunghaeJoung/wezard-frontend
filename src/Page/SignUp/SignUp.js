@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import SignUpContainer from "./RegContainer";
+import StepOne from "./Step/StepOne";
+import StepTwo from "./Step/StepTwo";
+import StepThree from "./Step/StepThree";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
@@ -8,21 +10,50 @@ export default class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stage: 3
+      step: 1,
+      birth: ""
     };
   }
+
+  goBack = () => {
+    this.setState({
+      step: this.state.step - 1
+    });
+  };
+
+  goNext = value => {
+    this.setState(
+      {
+        step: this.state.step + 1,
+        birth: value
+      },
+      () => {
+        console.log("전달받은 birth", value, this.state.birth);
+      }
+    );
+  };
+
   render() {
-    const { stage } = this.state;
+    const obj = {
+      1: <StepOne goNext={value => this.goNext(value)} />,
+      2: <StepTwo goNext={this.goNext} />,
+      3: <StepThree />
+    };
+
+    const { step } = this.state;
     return (
       <SignUpComponent>
         <Header>
-          <Btn left>
-            <IoIosArrowRoundBack style={{ width: "35px", height: "35px" }} />
-          </Btn>
+          {step !== 1 && (
+            <Btn left onClick={this.goBack}>
+              <IoIosArrowRoundBack style={{ width: "35px", height: "35px" }} />
+            </Btn>
+          )}
+
           <Step>
             <Number>01</Number>
             <ProgressBar>
-              <Line stage={stage}></Line>
+              <Line step={step}></Line>
               <Line></Line>
               <Line></Line>
             </ProgressBar>
@@ -32,7 +63,8 @@ export default class SignUp extends Component {
             <IoIosClose style={{ width: "35px", height: "35px" }} />
           </Btn>
         </Header>
-        <SignUpContainer stage={stage} />
+        {/* 회원가입 단계별 컴포넌트  */}
+        {obj[step]}
       </SignUpComponent>
     );
   }
@@ -83,7 +115,7 @@ const Line = styled.li`
   position: relative;
 
   ${props => {
-    if (props.stage === 1) {
+    if (props.step === 1) {
       return `
             background-color: #fff;
   &:after {

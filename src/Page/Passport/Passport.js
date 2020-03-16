@@ -114,7 +114,7 @@ const Button = styled.button`
   background-color: ${props => props.account && "transparent"};
 `;
 
-const Diamond = styled.image`
+const Diamond = styled.div`
   img {
     width: 30px;
     height: 60px;

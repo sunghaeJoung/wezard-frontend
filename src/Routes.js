@@ -5,7 +5,7 @@ import Footer from "./Components/Footer/Footer";
 import Navigator from "./Components/Navigator/Navigator";
 import Main from "./Page/Main/Main";
 import Login from "./Page/Login/Login";
-import SignUp from "./Page/Reg/Reg.js";
+import SignUp from "./Page/SignUp/SignUp";
 import Passport from "./Page/Passport/Passport";
 import "./Styles/common.scss";
 
