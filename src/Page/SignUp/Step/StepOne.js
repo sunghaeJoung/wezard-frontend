@@ -10,7 +10,7 @@ export default class StepOne extends Component {
     };
   }
 
-  handleBirth = e => {
+  handleStepOne = e => {
     this.setState({
       birth: e.target.value
     });
@@ -27,18 +27,28 @@ export default class StepOne extends Component {
   };
 
   checkBirth = () => {
-    let num = this.state.birth.split("/");
-    if (num[0] < 31 && num[1] < 13 && num[2] < 2021) {
+    let num = this.state.birth.split("-");
+    if (num[0] < 2021 && num[1] < 13 && num[2] < 31) {
       return true;
     } else {
       return false;
     }
   };
 
+  // 버튼 클릭하면 실행되는 함수
+  handleClick = () => {
+    const { birth, button } = this.state;
+    const { goNext } = this.props;
+
+    // 정보저장
+    sessionStorage.setItem("birth", birth);
+
+    // 이단계로 이동
+    button && goNext();
+  };
+
   render() {
     const { button, birth } = this.state;
-    const { goNext } = this.props;
-    console.log("부모로 전달하는 birth ", birth);
     return (
       <Container>
         <Text>
@@ -49,16 +59,16 @@ export default class StepOne extends Component {
           <InputContainer>
             <Label>DATE OF BIRTH</Label>
             <Input
-              placeholder="DD/MM/YYYY"
+              placeholder="YYYY-MM-DD"
               value={birth}
-              onChange={this.handleBirth}
+              onChange={this.handleStepOne}
             ></Input>
           </InputContainer>
         </AllInputContainer>
         <Button
           button={button}
           onClick={() => {
-            button && goNext(birth);
+            button && this.handleClick();
           }}
         >
           CONFIRM
@@ -94,8 +104,8 @@ const InputContainer = styled.div`
 
 const Label = styled.div`
   font-size: 12px;
-  font-weight: 700;
   letter-spacing: 1.5px;
+  font-family: "Sofia Pro Bold";
 `;
 
 const Input = styled.input`
@@ -128,8 +138,8 @@ const Input = styled.input`
 const Button = styled.button`
   width: 100%;
   height: 48px;
+  font-family: "Sofia Pro Bold";
   font-size: 14px;
-  font-weight: 700;
   letter-spacing: 1.1px;
   color: #3a372e;
   border: none;

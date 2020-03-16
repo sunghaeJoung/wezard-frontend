@@ -1,58 +1,188 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { TiEye } from "react-icons/ti";
-import { FaCheck } from "react-icons/fa";
+import { Check } from "styled-icons/boxicons-regular";
+import { EyeOutline } from "styled-icons/evaicons-outline";
 
 export default class StepTwo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      verify: "",
+      password: "",
+      following1: false,
+      following2: false,
+      button: false,
+      show_pw: true
+    };
+  }
+
+  handleStepTwo = e => {
+    this.setState(
+      {
+        [e.target.name]: e.target.value
+      },
+      () => {
+        this.state.password && this.checkPw();
+      }
+    );
+  };
+
+  checkEmail = () => {
+    const { email } = this.state;
+    return (
+      email.length !== 0 &&
+      !(email.includes("@") && email.includes(".")) && (
+        <div>Invalid email format</div>
+      )
+    );
+  };
+
+  handleEmailCheck = () => {
+    console.log("ddddd");
+    // fetch로 이메일 유무 확인하기
+  };
+
+  verifyEmail = () => {
+    const { email, verify } = this.state;
+    return email !== verify && <div>Emails don't match</div>;
+  };
+
+  checkPw = () => {
+    const { password, following1, following2 } = this.state;
+    const check_num = /[0-9]/;
+    const check_eng_big = /[a-z]/;
+    const check_eng_small = /[A-Z]/;
+
+    if (password.length >= 8) {
+      this.setState({
+        following1: true
+      });
+    } else {
+      this.setState({
+        following1: false
+      });
+    }
+
+    if (
+      check_num.test(password) &&
+      check_eng_big.test(password) &&
+      check_eng_small.test(password)
+    ) {
+      this.setState({
+        following2: true
+      });
+    } else {
+      this.setState({
+        following2: false
+      });
+    }
+
+    if (following1 && following2) {
+      this.setState({
+        button: true
+      });
+    } else {
+      this.setState({
+        button: false
+      });
+    }
+  };
+
+  // 버튼 클릭하면 실행되는 함수
+  handleClick = () => {
+    const { email, password, following1, following2 } = this.state;
+    const { goNext } = this.props;
+
+    // 정보저장
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("password", password);
+
+    // 삼단계로 이동
+    following1 && following2 && goNext();
+  };
+
+  //password input태그 type 바꾸는 함수
+  handlePW = () => {
+    this.setState({
+      show_pw: !this.state.show_pw
+    });
+  };
+
   render() {
+    const {
+      show_pw,
+      verify,
+      email,
+      following1,
+      following2,
+      button
+    } = this.state;
+
     return (
       <Container>
         <Text>Create your account</Text>
         <AllInputContainer>
           <InputContainer>
             <Label>EMAIL ADDRESS</Label>
-            <Input name="email" onChange={this.handleEmail}></Input>
+            <Input
+              name="email"
+              onChange={this.handleStepTwo}
+              onBlur={this.handleEmailCheck}
+            ></Input>
+            {this.checkEmail()}
           </InputContainer>
 
           <InputContainer>
             <Label>VERIFY EMAIL ADDRESS</Label>
-            <Input name="verify" onChange={this.handleEmail}></Input>
+            <Input name="verify" onChange={this.handleStepTwo}></Input>
+            {email && verify && this.verifyEmail()}
           </InputContainer>
 
           <InputContainer relative>
             <Label>NEW PASSWORD</Label>
             <Input
-              type="password"
-              name="pw"
-              onChange={this.handleEmail}
+              type={show_pw ? "password" : "text"}
+              name="password"
+              onChange={this.handleStepTwo}
             ></Input>
-            <Toggle>
-              <TiEye style={{ color: "rgb(153, 153, 153)" }} />
-            </Toggle>
+            <Toggle onClick={this.handlePW} />
           </InputContainer>
         </AllInputContainer>
         <Terms>
           <Following>Passwords must contain the following:</Following>
           {/* check 첫번째 */}
-          <Check relative>
-            <FaCheck style={{ position: "absolute", left: "0", top: "2px" }} />
-            <CheckTxt>A minimum of 8 characters</CheckTxt>
-          </Check>
+          <CheckBox relative>
+            <CheckIcon following1={following1} />
+
+            <CheckTxt following1={following1}>
+              A minimum of 8 characters
+            </CheckTxt>
+          </CheckBox>
           {/* check 두번째 */}
-          <Check relative>
-            <FaCheck style={{ position: "absolute", left: "0", top: "2px" }} />
-            <CheckTxt>
+          <CheckBox relative>
+            <CheckIcon following2={following2} />
+
+            <CheckTxt following2={following2}>
               A number and combination of
               <br />
               uppercase and lowercase characters.
             </CheckTxt>
-          </Check>
+          </CheckBox>
           {/* check 세번째 */}
-          <Check>
+          <CheckBox>
             <CheckTxt>Parseltongue. (Just kidding.)</CheckTxt>
-          </Check>
+          </CheckBox>
         </Terms>
-        <Button>CONTINUE</Button>
+        {/* 모든 값이 들어왔을 때, 버튼이 활성화하고 로컬에 정보 저장해야해 */}
+        <Button
+          button={button}
+          onClick={() => {
+            this.handleClick();
+          }}
+        >
+          CONTINUE
+        </Button>
       </Container>
     );
   }
@@ -80,12 +210,17 @@ const InputContainer = styled.div`
   margin: 20px 0 32px;
 
   position: ${props => props.relative && "relative"};
+
+  div {
+    font-size: 14px;
+    color: #ff6e6e;
+  }
 `;
 
-const Label = styled.div`
+const Label = styled.label`
   font-size: 12px;
-  font-weight: 700;
   letter-spacing: 1.5px;
+  font-family: "Sofia Pro Bold";
 `;
 
 const Input = styled.input`
@@ -118,8 +253,8 @@ const Input = styled.input`
 const Button = styled.button`
   width: 100%;
   height: 48px;
+  font-family: "Sofia Pro Bold";
   font-size: 14px;
-  font-weight: 700;
   letter-spacing: 1.1px;
   color: #3a372e;
   border: none;
@@ -129,15 +264,16 @@ const Button = styled.button`
   opacity: 0.3;
   outline: none;
 
-  opacity: ${props => props.button1 && "1"};
+  opacity: ${props => props.button && "1"};
 `;
 
-const Toggle = styled.div`
-  width: 20px;
-  height: 20px;
+const Toggle = styled(EyeOutline)`
+  width: 15px;
+  height: auto;
   position: absolute;
-  top: 38px;
+  top: 42px;
   right: 13px;
+  color: rgb(153, 153, 153);
 `;
 
 // 가입 2단계 terms
@@ -148,9 +284,11 @@ const Terms = styled.div`
 const Following = styled.div`
   font-size: 14px;
   padding-bottom: 20px;
+  font-family: "Sofia Pro Regular";
 `;
 
-const Check = styled.div`
+const CheckBox = styled.div`
+  font-family: "Sofia Pro Regular";
   font-size: 14px;
   color: hsla(0, 0%, 100%, 0.5);
   padding-left: 50px;
@@ -159,4 +297,17 @@ const Check = styled.div`
   position: ${props => props.relative && "relative"};
 `;
 
-const CheckTxt = styled.div``;
+const CheckTxt = styled.div`
+  color: ${props => props.following1 && "#ffffff"};
+  color: ${props => props.following2 && "#ffffff"};
+`;
+
+const CheckIcon = styled(Check)`
+  width: 20px;
+  height: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: ${props => props.following1 && "#ffffff"};
+  color: ${props => props.following2 && "#ffffff"};
+`;
