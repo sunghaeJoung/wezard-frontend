@@ -48,7 +48,7 @@ export default class SignUp extends Component {
           <Step>
             <Number>01</Number>
             <ProgressBar>
-              <Line></Line>
+              <Line step={step}></Line>
               <Line></Line>
               <Line></Line>
             </ProgressBar>
