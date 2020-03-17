@@ -20,7 +20,18 @@ export default class Login extends Component {
   // 사용자 정보 받아오기
   onSignIn = () => {
     const token = sessionStorage.getItem("google_token");
-    token && this.props.history.push("/");
+    fetch("http://10.58.2.253:8000/user/google", {
+      method: "POST",
+      headers: {
+        Authorization: token
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log("google res", res);
+        this.props.history.push("/");
+      });
+    // token && this.props.history.push("/");
   };
 
   goToMain = () => {
@@ -93,10 +104,9 @@ export default class Login extends Component {
       })
         .then(res => res.json())
         .then(res => {
-          console.log("로그인 res 도착", res);
-          // if (res.statue === 200) {
+          // console.log("로그인 res 도착", res);
           if (res.token) {
-            console.log("res status", res.token);
+            // console.log("res status", res.token);
             sessionStorage.setItem("token", res.token);
             this.props.history.push("/");
           } else {
@@ -109,7 +119,6 @@ export default class Login extends Component {
 
   render() {
     const { error, error_login, button } = this.state;
-    console.log("에러랑 버튼 true???", error, button);
     return (
       <LoginComponent>
         <Header>
@@ -154,7 +163,7 @@ export default class Login extends Component {
             <div
               class="g-signin2"
               data-onsuccess="onSignIn"
-              onClick={this.onSignIn}
+              onClick={() => this.onSignIn()}
             ></div>
             <Button button={button} onClick={this.loginFetch}>
               CONTINUE

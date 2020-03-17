@@ -1,0 +1,24 @@
+{
+  "SortingData": [
+    {
+      "id": 1,
+      "img": "https://my.wizardingworld.com/static/media/shadows@2x.fba40585.png",
+      "text": "Draw your wand and stand your ground?"
+    },
+    {
+      "id": 2,
+      "img": "https://my.wizardingworld.com/static/media/caution@2x.3374b39f.png",
+      "text": "Withdraw into the shadows to await developments, while mentally reviewing the most appropriate defensive and offensive spells, should trouble occur?"
+    },
+    {
+      "id": 3,
+      "img": "https://my.wizardingworld.com/static/media/shadows@2x.fba40585.png",
+      "text": "Draw your wand and try to discover the source of the noise?"
+    },
+    {
+      "id": 4,
+      "img": "https://my.wizardingworld.com/static/media/caution@2x.3374b39f.png",
+      "text": "Proceed with caution, keeping one hand on your concealed wand and an eye out for any disturbance?"
+    }
+  ]
+}
