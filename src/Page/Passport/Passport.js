@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Header from "../../Components/Header/Header";
-import hogwart from "../../Images/hogwart.svg";
-import diamond from "../../Images/Diamond.svg";
+import Diamond from "../../Components/Diamond/Diamond";
 
 export default class Passport extends Component {
   render() {
@@ -12,7 +11,6 @@ export default class Passport extends Component {
         <Container>
           <PassportText>Wizarding Passport</PassportText>
           <Section>
-            <HogwartImg src={hogwart} alt={hogwart}></HogwartImg>
             <UserNameContainer>
               {/* 백한테 api 유저정보 받아와야해 */}
               <UserName>joung</UserName>
@@ -22,7 +20,7 @@ export default class Passport extends Component {
           </Section>
           <SectionButtom>
             <Text>FAVORITES</Text>
-            <img src={diamond} alt="diamond"></img>
+            <Diamond />
           </SectionButtom>
         </Container>
       </PassportComponent>
@@ -45,12 +43,12 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
 `;
 
 const PassportText = styled.div`
   font-size: 24px;
+  text-align: center;
   line-height: 32px;
   margin-top: 100px;
 `;
@@ -59,13 +57,6 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const HogwartImg = styled.image`
-  width: 65px;
-  height: 75px;
-  padding: 20px 10px;
-  background-color: white;
 `;
 
 const UserNameContainer = styled.div`
@@ -98,15 +89,10 @@ const Button = styled.button`
 `;
 
 const SectionButtom = styled.div`
-  /* height: 76px; */
   margin-bottom: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  img {
-    margin: 20px 0;
-  }
 `;
 
 const Text = styled.div`

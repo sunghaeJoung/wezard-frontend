@@ -139,7 +139,7 @@ const Diagonal = styled.div`
   left: ${props => props.left && "0"};
 
   ${props => {
-    if (props.left_bg === true || props.right_bg === true) {
+    if (props.left_bg || props.right_bg) {
       return `
     opacity: 0.8;
     `;
