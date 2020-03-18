@@ -41,12 +41,13 @@ class Middle extends Component {
       this.setState({ friends: true });
     } else if (scrollTop > 2070) {
       this.setState({ thirdText: true });
-    } else {
-      console.log("out");
-      this.setState({
-        friends: false
-      });
     }
+    // else {
+    //   console.log("out");
+    //   this.setState({
+    //     friends: false
+    //   });
+    // }
   };
 
   render() {
