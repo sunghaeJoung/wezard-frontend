@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import logo from "Images/logo.svg";
 import diamond from "Images/Diamond.svg";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Header from "../../../Components/Header/Header";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const boxFade = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 class Top extends Component {
   render() {
@@ -46,24 +58,15 @@ const BgImgCover = styled.div`
   z-index: 1;
 `;
 
-// const Nav = styled.div`
-//   width: 100%;
-//   height: 60px;
-//   padding-top: 28px;
-//   border: 1px solid white;
-// `;
-
 const TopBgImg = styled.div`
   position: relative;
   background-image: url("https://images.ctfassets.net/usf1vwtuqyxm/1C7Sv1wIFHPt6u7RMWWfHd/25589514b25f1d5be5206c77d06b5fbc/Beedle_the_Bard_Article05.jpg?w=2880&h=1740&fit=fill&fm=webp");
   background-size: cover;
   background-position: center center;
-  /* height: 100%; */
   width: 100%;
-  /* max-width: 100vw; */
   z-index: 0;
   justify-content: center;
-  /* z-index: 999; */
+  animation: ${boxFade} 2s 1;
   ::before {
     content: "";
     position: absolute;
@@ -94,6 +97,7 @@ const Logo = styled.img`
   height: 75px;
   padding-top: 30px;
   z-index: 1;
+  animation: ${boxFade} 4s 1;
 `;
 
 const Article = styled.div`
@@ -102,6 +106,7 @@ const Article = styled.div`
   color: #f9f4f2;
   display: flex;
   flex-direction: column;
+  animation: ${boxFade} 4s 1;
 `;
 
 const Title = styled.div`

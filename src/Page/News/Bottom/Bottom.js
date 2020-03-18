@@ -26,8 +26,6 @@ class Bottom extends Component {
         this.setState({
           bottomData: result
         });
-        // this._getUrls();
-        // window.addEventListener("scroll", this._infiniteScroll, true);
       });
   };
 
@@ -44,7 +42,7 @@ class Bottom extends Component {
 
     if (scrollTop + clientHeight === scrollHeight) {
       this.setState({
-        perItems: this.state.items,
+        preItems: this.state.preItems,
         items: this.state.items + 6
       });
 

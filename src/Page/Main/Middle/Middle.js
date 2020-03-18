@@ -1,12 +1,59 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+
+const fadein = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+  /* from { opacity: 0; }
+      to   { opacity: 1; } */
+`;
 
 class Middle extends Component {
+  state = {
+    movePX: 0,
+    friends: false,
+    leftText: false,
+    thirdText: false
+  };
+
+  //컴포넌트가 랜더링되면 window를 기준으로 스크롤 이벤트 등록
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+  //컴포넌트가 화면에서 사라질 때 scroll 이벤트를 제거한다.
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+  handleScroll = e => {
+    const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
+    console.log(scrollTop);
+    if (scrollTop > 490 && scrollTop < 1152) {
+      this.setState({ leftText: true });
+    } else if (scrollTop > 1400 && scrollTop < 2060) {
+      console.log("in");
+      this.setState({ friends: true });
+    } else if (scrollTop > 2070) {
+      this.setState({ thirdText: true });
+    } else {
+      console.log("out");
+      this.setState({
+        friends: false
+      });
+    }
+  };
+
   render() {
     return (
       <MainMiddleCover>
         <PartWrapper>
-          <TextWrapper>
+          <TextWrapper leftTextState={this.state.leftText}>
             <SubTitle>LEARN ABOUT</SubTitle>
             <Title>Wizarding World Gold</Title>
             <BodyText>
@@ -27,14 +74,17 @@ class Middle extends Component {
             alt=""
           />
           <LeftPerson
+            textlineState={this.state.friends}
             src="https://assets.wizardingworld.com/frontend/_next/static/images/hermione-0b5d18cefb6a2ffc8efe6feec4c5292c.png.webp"
             alt=""
           />
           <MidPerson
+            textlineState={this.state.friends}
             src="https://assets.wizardingworld.com/frontend/_next/static/images/harry-ee27fff5df31d0185c137ae7928fd4ba.png.webp"
             alt=""
           />
           <RightPerson
+            textlineState={this.state.friends}
             src="https://assets.wizardingworld.com/frontend/_next/static/images/ron-cd52faf880d813905583c6bbd4615a3b.png.webp"
             alt=""
           />
@@ -52,7 +102,7 @@ class Middle extends Component {
           </TextWrapperMid>
         </PartWrapperMid>
         <PartWrapper>
-          <TextWrapper>
+          <ThirdTextWrapper ThirdTextState={this.state.thirdText}>
             <SubTitle>INTRODUCING</SubTitle>
             <Title>The Official Harry Potter Fan Club</Title>
             <BodyText>
@@ -61,7 +111,7 @@ class Middle extends Component {
               other.
             </BodyText>
             <Button Third>FIND OUT MORE</Button>
-          </TextWrapper>
+          </ThirdTextWrapper>
           <ArticleImg
             src="https://assets.wizardingworld.com/frontend/_next/static/images/rectangle-ac5794a87516446dab1c31c0c3b02996.jpg.webp"
             alt=""
@@ -78,26 +128,17 @@ const MainMiddleCover = styled.div`
   width: 100%;
   height: auto;
   margin-top: 60px;
-  /* border: 3px solid red; */
-  /* display: block; */
 `;
 
 const PartWrapper = styled.div`
   position: relative;
-  /* width: 100%;
-  max-width: 80%;
-  margin: auto; */
-  /* display: flex;
-  flex-direction: end; */
   display: flex;
   align-items: center;
-  /* flex-direction: column; */
   width: 100%;
   max-width: 1440px;
   margin: auto;
   height: 580px;
   margin: 40px auto;
-  /* border: 1px solid yellow; */
 `;
 
 const ArticleImg = styled.img`
@@ -109,10 +150,6 @@ const ArticleImg = styled.img`
   right: 0;
   z-index: 1;
   margin-left: 0%;
-  /* float: right; */
-  /* overflow: hidden; */
-  /* top: 400px; */
-  /* max-height: 480px; */
 `;
 
 const Gradient = styled.div`
@@ -126,7 +163,6 @@ const Gradient = styled.div`
     rgba(16, 20, 27, 1),
     rgba(16, 20, 27, 0) 98%
   );
-  /* border: 1px solid orange; */
 `;
 
 const TextWrapper = styled.div`
@@ -135,7 +171,36 @@ const TextWrapper = styled.div`
   float: left;
   padding-left: 10%;
   z-index: 3;
-  /* border: 1px solid pink; */
+  opacity: 0;
+  ${props => {
+    if (props.leftTextState) {
+      return css`
+        animation-name: ${fadein};
+        animation-duration: 4s;
+        opacity: 1;
+        /* animation-iteration-count: linear infinite; */
+      `;
+    }
+  }}
+`;
+
+const ThirdTextWrapper = styled.div`
+  position: absolute;
+  width: 33%;
+  float: left;
+  padding-left: 10%;
+  z-index: 3;
+  opacity: 0;
+  ${props => {
+    if (props.ThirdTextState) {
+      return css`
+        animation-name: ${fadein};
+        animation-duration: 4s;
+        opacity: 1;
+        /* animation-iteration-count: linear infinite; */
+      `;
+    }
+  }}
 `;
 
 const SubTitle = styled.div`
@@ -168,7 +233,6 @@ const BodyText = styled.div`
 
 const Button = styled.button`
   font-family: "Sofia Pro Bold";
-  /* color: #f9f3f2; */
   font-size: 12px;
   padding: 12px 70px;
   background-color: #e5ae5b;
@@ -194,20 +258,13 @@ const Button = styled.button`
 
 const PartWrapperMid = styled.div`
   position: relative;
-  /* width: 100%;
-  max-width: 80%;
-  margin: auto; */
-  /* display: flex;
-  flex-direction: end; */
   display: flex;
   align-items: center;
-  /* flex-direction: column; */
   width: 100%;
   max-width: 1280px;
   margin: auto;
   height: 1000px;
   margin: 40px auto;
-  /* border: 1px solid yellow; */
 `;
 
 const MidBgImg = styled.img`
@@ -219,17 +276,23 @@ const MidBgImg = styled.img`
   left: 0;
   z-index: 1;
   margin-left: 0%;
-  /* float: right; */
-  /* overflow: hidden; */
-  /* top: 400px; */
-  /* max-height: 480px; */
 `;
 
 const LeftPerson = styled.img`
   position: absolute;
   max-width: 37%;
   z-index: 2;
-  /* max-height 60: */
+  opacity: 0;
+  ${props => {
+    if (props.textlineState) {
+      return css`
+        animation-name: ${fadein};
+        animation-duration: 4s;
+        opacity: 1;
+        /* animation-iteration-count: linear infinite; */
+      `;
+    }
+  }}
 `;
 
 const MidPerson = styled.img`
@@ -237,6 +300,17 @@ const MidPerson = styled.img`
   left: 170px;
   max-width: 42%;
   z-index: 3;
+  opacity: 0;
+  ${props => {
+    if (props.textlineState) {
+      return css`
+        animation-name: ${fadein};
+        animation-duration: 2s;
+        opacity: 1;
+        /* animation-iteration-count: linear infinite; */
+      `;
+    }
+  }}
 `;
 
 const RightPerson = styled.img`
@@ -244,6 +318,17 @@ const RightPerson = styled.img`
   max-width: 37%;
   left: 440px;
   z-index: 2;
+  opacity: 0;
+  ${props => {
+    if (props.textlineState) {
+      return css`
+        animation-name: ${fadein};
+        animation-duration: 4s;
+        opacity: 1;
+        /* animation-iteration-count: linear infinite; */
+      `;
+    }
+  }}
 `;
 
 const TextWrapperMid = styled.div`
@@ -251,8 +336,6 @@ const TextWrapperMid = styled.div`
   width: 33%;
   right: 0;
   z-index: 3;
-  /* border: 1px solid pink; */
-  /* padding-left: 10%; */
 `;
 
 const SubTitleMid = styled.div`
@@ -269,16 +352,12 @@ const TitleMid = styled.div`
   color: #f9f4f2;
   margin-top: 20px;
   max-width: 432px;
-  /* float: right;
-  text-align: right; */
 `;
 
 const BodyTextMid = styled.div`
   font-family: "Sofia Pro Regular";
   font-size: 16px;
   color: #f9f3f2;
-  /* text-align: right;
-  float: right; */
   margin-top: 20px;
   max-width: 432px;
 `;

@@ -11,10 +11,11 @@ class Top extends Component {
           <BgImg>
             <Header />
             <TextWrapper>
-              <Title>News</Title>
+              <Title>Features</Title>
               <Article>
-                Get the latest Wizarding World news here. Faster than an owl and
-                more accurate than the Daily Prophet
+                For beginners, for novices, for Harry Potter superfans going 20
+                years-strong, dig deep into the Wizarding World with our
+                collection of features
               </Article>
               <Diamond>
                 <img src={diamond} alt="diamond"></img>
