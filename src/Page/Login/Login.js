@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import key from "../../Images/Key.svg";
 import { Close } from "styled-icons/evaicons-solid";
+import { Address } from "../../config";
 
 export default class Login extends Component {
   constructor(props) {
@@ -20,7 +21,8 @@ export default class Login extends Component {
   // 사용자 정보 받아오기
   onSignIn = () => {
     const token = sessionStorage.getItem("google_token");
-    fetch("http://10.58.2.253:8000/user/google", {
+
+    fetch(`${Address}/user/google`, {
       method: "POST",
       headers: {
         Authorization: token
@@ -29,6 +31,7 @@ export default class Login extends Component {
       .then(res => res.json())
       .then(res => {
         console.log("google res", res);
+
         this.props.history.push("/");
       });
     // token && this.props.history.push("/");

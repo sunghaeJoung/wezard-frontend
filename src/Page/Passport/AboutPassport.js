@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import Header from "../../Components/Header/Header";
 import key from "../../Images/Key.svg";
-import diamond from "../../Images/Diamond.svg";
+import Diamond from "../../Components/Diamond/Diamond";
 
 export default class AboutPassport extends Component {
   goToSignUp = () => {
@@ -34,9 +34,7 @@ export default class AboutPassport extends Component {
               <Button onClick={this.goToSignUp}>CREATE PASSPORT</Button>
               <Button account>USE POTTERMORE ACCOUNT</Button>
             </ButtonContainer>
-            <Diamond>
-              <img src={diamond} alt="diamond"></img>
-            </Diamond>
+            <Diamond />
           </Register>
         </Container>
       </AboutPassportComponent>
@@ -113,13 +111,4 @@ const Button = styled.button`
       color: #ffffff;
       background-color: transparent;
     `}
-`;
-
-const Diamond = styled.div`
-  img {
-    width: 30px;
-    height: 60px;
-    margin: 20px auto;
-    z-index: 100;
-  }
 `;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { Check } from "styled-icons/boxicons-regular";
 import { EyeOutline } from "styled-icons/evaicons-outline";
+import { AWS } from "../../../config";
 
 export default class StepTwo extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class StepTwo extends Component {
 
   // 이메일 확인
   handleEmailCheck = () => {
-    fetch("http://52.78.241.65:8000/user/email-check", {
+    fetch(`${AWS}/user/email-check`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
