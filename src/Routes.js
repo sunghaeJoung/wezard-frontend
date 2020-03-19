@@ -5,6 +5,7 @@ import Footer from "./Components/Footer/Footer";
 import Navigator from "./Components/Navigator/Navigator";
 import Main from "./Page/Main/Main";
 import News from "./Page/News/News";
+import Essay from "./Page/Essay/Essay";
 import Features from "./Page/Features/Features";
 import Login from "./Page/Login/Login";
 import SignUp from "./Page/SignUp/SignUp";
@@ -28,6 +29,7 @@ export default class Routes extends React.Component {
           <Route exact path="/passport" component={Passport} />
           <Route exact path="/news" component={News} />
           <Route exact path="/features" component={Features} />
+          <Route exact path="/Essay" component={Essay} />
           <Route exact path="/test" component={Test} />
           <Route exact path="/about-passport" component={AboutPassport} />
           <Route exact path="/sorting" component={Sorting} />
