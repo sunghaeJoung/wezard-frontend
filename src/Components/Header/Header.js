@@ -32,7 +32,7 @@ class Header extends React.Component {
   로그아웃하면 remove 토큰 
   */
   componentDidMount() {
-    const token = window.localStorage.getItem("token");
+    const token = window.sessionStorage.getItem("token");
     if (token) {
       this.setState({
         loginStatus: true

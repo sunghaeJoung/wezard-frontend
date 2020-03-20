@@ -204,9 +204,8 @@ const HouseName = styled.div`
   font-size: 76px;
   font-weight: 700;
   text-align: center;
-  /* text-transform: capitalize; */
   color: #faf6f0;
-  margin: 13px auto 20px;
+  margin: 13px auto 0;
 
   ${props =>
     props.share &&

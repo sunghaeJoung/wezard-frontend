@@ -69,7 +69,7 @@ class Navigator extends React.Component {
               </NaviSpan5>
               <IoIosArrowForward size="24" color="white" />
             </NaviLi>
-            <NaviLi onClick={() => this.goPage("/sorting")}>
+            <NaviLi onClick={() => this.goPage("/passport")}>
               <NaviSpan6 menu={this.props.menu}>Hogwarts Sorting</NaviSpan6>
             </NaviLi>
             <NaviLi>
