@@ -118,7 +118,7 @@ const SliderFrame = styled.div`
 
 const Sliders = styled.div`
   display: flex;
-  width: (${props => props.length} * 234) px;
+  width: 936px;
   transform: translateX(${props => props.state}px);
   transition: transform 0.5s;
 
