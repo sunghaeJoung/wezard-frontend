@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import key from "../../../Images/Key.svg";
 
-export default class Finish extends Component {
+class Finish extends Component {
+  goToMain = () => {
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <FinishComponent>
@@ -13,7 +18,7 @@ export default class Finish extends Component {
             Welcome to the Official Harry Potter Fan
             <br /> Club.
           </TextSub>
-          <Button>FINISH</Button>
+          <Button onClick={this.goToMain}>FINISH</Button>
         </Container>
       </FinishComponent>
     );
@@ -63,3 +68,5 @@ const Button = styled.button`
   outline: none;
   cursor: pointer;
 `;
+
+export default withRouter(Finish);

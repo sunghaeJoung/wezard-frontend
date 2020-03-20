@@ -110,7 +110,7 @@ export default class Login extends Component {
           if (res.token) {
             // console.log("res status", res.token);
             sessionStorage.setItem("token", res.token);
-            this.props.history.push("/passport");
+            this.props.history.push("/");
           } else {
             this.setState({
               error_login: true

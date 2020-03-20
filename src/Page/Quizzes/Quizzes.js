@@ -650,6 +650,8 @@ const StartButton = styled.button`
   justify-content: center;
   align-items: center;
   outline: 0;
+  cursor: pointer;
+
   :hover {
     background-color: #3897f0;
   }
@@ -707,6 +709,7 @@ const NextButton = styled.button`
   font-family: Sofia Pro regular, serif;
   font-size: 17px;
   outline: none;
+  cursor: pointer;
 `;
 const ResultOuterDiv = styled.div`
   border: 0px solid red;

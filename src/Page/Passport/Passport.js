@@ -35,23 +35,23 @@ export default class Passport extends Component {
       });
   };
 
-  componentDidUpdate = (prevProps, prevState) => {
-    const { result } = this.state;
-    if (prevState.result !== result) {
-      fetch(`${Address}/sorting/passport`, {
-        headers: {
-          Authorization: token
-        }
-      })
-        .then(res => res.json())
-        .then(res => {
-          console.log(res);
-          this.setState({
-            result: res.data
-          });
-        });
-    }
-  };
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   const { result } = this.state;
+  //   if (prevState.result !== result) {
+  //     fetch(`${Address}/sorting/passport`, {
+  //       headers: {
+  //         Authorization: token
+  //       }
+  //     })
+  //       .then(res => res.json())
+  //       .then(res => {
+  //         console.log(res);
+  //         this.setState({
+  //           result: res.data
+  //         });
+  //       });
+  //   }
+  // };
 
   render() {
     const { user_info, result } = this.state;

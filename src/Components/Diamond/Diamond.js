@@ -14,7 +14,7 @@ export default class Diamond extends Component {
 }
 
 const DiamondComponent = styled.div`
-  margin-top: 20px;
+  margin-top: 50px;
 `;
 
 const Diamonds = styled.div`

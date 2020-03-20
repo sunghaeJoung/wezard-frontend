@@ -22,7 +22,7 @@ class SlickSlider extends Component {
       // fetch("http://10.58.7.135:8000/article/main-slide")
       .then(res => res.json())
       .then(res => {
-        console.log("dddd", res.data);
+        console.log("dddd", res);
         this.setState({
           data: res.data
         });
