@@ -1,25 +1,26 @@
 import React, { Component } from "react";
-import LatestNewsBox from "./LatestNewsBox";
 import styled from "styled-components";
+import { URL } from "../../../config";
+import LatestNewsBox from "./LatestNewsBox";
 
 class LatestNews extends Component {
   constructor() {
     super();
 
     this.state = {
-      LatestNewsData: []
+      data: []
     };
   }
 
   componentDidMount() {
-    // fetch("http://localhost:3000/data/LatestNewsData.json", {
-    //   method: "GET"
-    // })
-    fetch("http://localhost:3000/data/LatestNewsData.json")
+    fetch(`${URL}/article/1?offset=0&limit=3`, {
+      method: "GET"
+    })
+      // fetch("http://localhost:3000/data/LatestNewsData.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
-          LatestNewsData: res.LatestNewsData
+          data: res.data
         });
       });
   }
@@ -29,9 +30,13 @@ class LatestNews extends Component {
       <LatestNewsWrapper>
         <Category>Latest news</Category>
         <CardWrapper>
-          {this.state.LatestNewsData.map(item => {
+          {this.state.data.map((item, i) => {
             return (
-              <LatestNewsBox thumbnail={item.thumbnail} title={item.title} />
+              <LatestNewsBox
+                thumbnail={item.thumbnail}
+                title={item.title}
+                key={i}
+              />
             );
           })}
         </CardWrapper>

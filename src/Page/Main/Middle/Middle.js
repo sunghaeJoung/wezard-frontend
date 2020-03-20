@@ -33,11 +33,11 @@ class Middle extends Component {
   }
   handleScroll = e => {
     const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
-    console.log(scrollTop);
+    // console.log(scrollTop);
     if (scrollTop > 490 && scrollTop < 1152) {
       this.setState({ leftText: true });
     } else if (scrollTop > 1400 && scrollTop < 2060) {
-      console.log("in");
+      // console.log("in");
       this.setState({ friends: true });
     } else if (scrollTop > 2070) {
       this.setState({ thirdText: true });

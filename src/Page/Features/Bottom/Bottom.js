@@ -1,33 +1,30 @@
 import React, { Component } from "react";
-import BottomBox from "./BottomBox";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
+import { URL } from "../../../config";
+import BottomBox from "./BottomBox";
 
 class Bottom extends Component {
   constructor() {
     super();
 
     this.state = {
-      items: 6,
+      items: 2,
       preItems: 0,
-      bottomData: []
+      data: []
     };
   }
 
   getItem = () => {
-    fetch("http://localhost:3000/data/BottomData.json")
+    fetch(`${URL}/article/2?offset=5`)
       .then(res => res.json())
       .then(res => {
-        console.log(res.BottomData);
-        let result = res.BottomData.slice(
-          this.state.preItems,
-          this.state.items
-        );
+        console.log(res.data);
+        let result = res.data.slice(this.state.preItems, this.state.items);
         console.log(result);
         this.setState({
-          bottomData: result
+          data: result
         });
-        // this._getUrls();
-        // window.addEventListener("scroll", this._infiniteScroll, true);
       });
   };
 
@@ -45,7 +42,7 @@ class Bottom extends Component {
     if (scrollTop + clientHeight === scrollHeight) {
       this.setState({
         preItems: this.state.preItems,
-        items: this.state.items + 6
+        items: this.state.items + 4
       });
 
       this.getItem();
@@ -57,8 +54,13 @@ class Bottom extends Component {
     window.addEventListener("scroll", this._infiniteScroll, true);
   }
 
+  goDetail = id => {
+    // console.log(id);
+    this.props.history.push(`/detail_features?id=${id}`);
+  };
+
   render() {
-    console.log("데이터", this.state.bottomData);
+    console.log("데이터", this.state.data);
     return (
       <BottomWrapper>
         <BodyWrapper>
@@ -66,13 +68,15 @@ class Bottom extends Component {
             <Head>More to explore</Head>
           </TitleWrapper>
           <WholeCardWrapper>
-            {this.state.bottomData.map(item => {
+            {this.state.data.map((item, i) => {
               return (
                 <BottomBox
                   thumbnail={item.thumbnail}
                   article={item.article}
                   title={item.title}
                   author={item.author}
+                  id={i}
+                  goDetail={this.goDetail}
                 />
               );
             })}
@@ -103,7 +107,7 @@ const Head = styled.div`
 `;
 
 const WholeCardWrapper = styled.div`
-  max-width: 1400px;
+  max-width: 1200px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -111,4 +115,4 @@ const WholeCardWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export default Bottom;
+export default withRouter(Bottom);

@@ -5,7 +5,7 @@ const SliderBox = props => {
   return (
     <>
       <DivWrapper>
-        <Pic src={props.img} alt="" />
+        <Pic src={props.thumbnail} alt="" />
         <TextWrapper>
           <Category>{props.category}</Category>
           <Title>{props.title}</Title>
@@ -18,7 +18,8 @@ const SliderBox = props => {
 const DivWrapper = styled.div`
   margin: 30px;
   cursor: pointer;
-  /* position: relative; */
+  z-index: 9999;
+  position: relative;
 `;
 
 const TextWrapper = styled.div`
@@ -33,8 +34,10 @@ const TextWrapper = styled.div`
 
 const Pic = styled.img`
   width: 358px;
+  height: 201px;
   margin-left: ${props => props.left && "50px"};
   opacity: 0.8;
+  z-index: 9999;
 `;
 
 const Category = styled.div`
@@ -49,6 +52,8 @@ const Title = styled.div`
   object-fit: contain;
   z-index: 9999;
   position: relative;
+  height: 150px;
+  overflow: hidden;
 `;
 
 export default SliderBox;

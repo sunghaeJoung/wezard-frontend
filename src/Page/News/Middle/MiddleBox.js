@@ -34,9 +34,10 @@ const Box = styled.div`
 
 const Thumbnail = styled.img`
   position: absolute;
-  width: 100%;
-  max-width: 595px;
+  width: 595px;
+  height: 595px;
   z-index: 0;
+  object-fit: cover;
 `;
 
 const Border = styled.div`
@@ -54,6 +55,7 @@ const Text = styled.div`
   align-items: center;
   text-align: center;
   padding: 0 120px;
+  padding-bottom: 30px;
 `;
 
 const Title = styled.div`

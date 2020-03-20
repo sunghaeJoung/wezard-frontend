@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import FeaturesBox from "./FeaturesBox";
 import styled from "styled-components";
+import { URL } from "../../../config";
+import FeaturesBox from "./FeaturesBox";
 
 class Features extends Component {
   constructor() {
@@ -13,15 +14,15 @@ class Features extends Component {
   }
 
   componentDidMount() {
-    // fetch("http://localhost:3000/data/FeaturesData.json", {
-    //   method: "GET"
-    // })
-    fetch("http://localhost:3000/data/FeaturesData.json")
+    fetch(`${URL}/article/2?offset=0&limit=4`, {
+      method: "GET"
+    })
+      // fetch("http://localhost:3000/data/FeaturesData.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
-          Left: res.FeaturesData.slice(0, 2),
-          Right: res.FeaturesData.slice(2, 4)
+          Left: res.data.slice(0, 2),
+          Right: res.data.slice(2, 4)
         });
       });
   }
@@ -32,16 +33,24 @@ class Features extends Component {
         <Category>Magical features</Category>
         <BoxWrapper>
           <Left>
-            {this.state.Left.map(item => {
+            {this.state.Left.map((item, i) => {
               return (
-                <FeaturesBox thumbnail={item.thumbnail} title={item.title} />
+                <FeaturesBox
+                  thumbnail={item.thumbnail}
+                  title={item.title}
+                  key={i}
+                />
               );
             })}
           </Left>
           <Right>
-            {this.state.Right.map(item => {
+            {this.state.Right.map((item, i) => {
               return (
-                <FeaturesBox thumbnail={item.thumbnail} title={item.title} />
+                <FeaturesBox
+                  thumbnail={item.thumbnail}
+                  title={item.title}
+                  key={i}
+                />
               );
             })}
           </Right>
