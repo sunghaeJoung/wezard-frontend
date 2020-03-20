@@ -22,7 +22,7 @@ export default class SortingResult extends Component {
     selects.push(Number(sessionStorage.getItem("select2")));
     selects.push(Number(sessionStorage.getItem("select3")));
     fetch(`${Address}/sorting/house/result`, {
-      method: "post",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: sessionStorage.getItem("token")
@@ -38,6 +38,10 @@ export default class SortingResult extends Component {
           result: res.data
         });
       });
+  };
+
+  goToPassport = () => {
+    this.props.history.push("/passport");
   };
 
   render() {
@@ -115,7 +119,7 @@ export default class SortingResult extends Component {
                 Their daring, nerve and chivalry Set Gryffindors apart.
               </Content>
             </Last>
-            <Button>BACK TO PASSPORT</Button>
+            <Button onClick={this.goToPassport}>BACK TO PASSPORT</Button>
           </ContainerBottom>
         </Container>
         <Footer sorting={true} />
@@ -126,11 +130,11 @@ export default class SortingResult extends Component {
 
 const SortingResultComponent = styled.div`
   background-image: ${props => "url(" + props.image + ")"};
-  /* background-image: url({props.image}); */
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
   height: 100%;
+  padding-top: 320px;
 `;
 
 const Container = styled.section`
@@ -408,7 +412,7 @@ const Button = styled.button`
   display: block;
   margin: 3px auto 40px;
   padding: 18px 31px;
-
+  outline: none;
   cursor: pointer;
 
   :hover {

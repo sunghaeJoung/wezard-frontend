@@ -61,4 +61,5 @@ const Button = styled.button`
   margin-top: 40px !important;
   border-radius: 30px;
   outline: none;
+  cursor: pointer;
 `;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import { AWS } from "../../../config";
+import { Address } from "../../../config";
 
 export default class StepThree extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class StepThree extends Component {
   };
 
   finalStep = () => {
-    fetch(`${AWS}/user/sign-up`, {
+    fetch(`${Address}/user/sign-up`, {
       method: "POST",
       // mode: "no-cors",
       headers: { "Content-Type": "application/json" },

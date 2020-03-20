@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import { Close } from "styled-icons/evaicons-solid";
 import { Address } from "../../config";
-import { AWS } from "../../config";
 import key from "../../Images/Key.svg";
 
 export default class Login extends Component {
@@ -35,7 +34,6 @@ export default class Login extends Component {
 
         this.props.history.push("/");
       });
-    // token && this.props.history.push("/");
   };
 
   goToMain = () => {
@@ -112,7 +110,7 @@ export default class Login extends Component {
           if (res.token) {
             // console.log("res status", res.token);
             sessionStorage.setItem("token", res.token);
-            this.props.history.push("/sorting");
+            this.props.history.push("/passport");
           } else {
             this.setState({
               error_login: true

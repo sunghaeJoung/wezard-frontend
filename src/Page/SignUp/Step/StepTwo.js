@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import { AWS } from "../../../config";
+import { Address } from "../../../config";
+import { test_num } from "../../../utils";
+import { test_eng_big } from "../../../utils";
+import { test_eng_small } from "../../../utils";
 import { Check } from "styled-icons/boxicons-regular";
 import { EyeOutline } from "styled-icons/evaicons-outline";
 
@@ -35,7 +38,7 @@ export default class StepTwo extends Component {
 
   // 이메일 확인
   handleEmailCheck = () => {
-    fetch(`${AWS}/user/email-check`, {
+    fetch(`${Address}/user/email-check`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -44,10 +47,13 @@ export default class StepTwo extends Component {
         email: this.state.email
       })
     })
-      // .then(res => res.json())
+      .then(res => res.json())
       .then(res => {
         console.log("응답 도착", res);
-        if (res.message === "DUPLICATE_EMAIL") {
+        if (res.status === 200) {
+          return;
+        }
+        if (res.message === "DUPLICATED_EMAIL") {
           this.setState({
             emailError1: true
           });
@@ -90,9 +96,6 @@ export default class StepTwo extends Component {
 
   checkPw = () => {
     const { password, following1, following2 } = this.state;
-    const check_num = /[0-9]/;
-    const check_eng_big = /[a-z]/;
-    const check_eng_small = /[A-Z]/;
 
     if (password.length >= 8) {
       this.setState({
@@ -105,9 +108,9 @@ export default class StepTwo extends Component {
     }
 
     if (
-      check_num.test(password) &&
-      check_eng_big.test(password) &&
-      check_eng_small.test(password)
+      `${test_num}(password)` &&
+      `${test_eng_big}(password)` &&
+      `${test_eng_small}(password)`
     ) {
       this.setState({
         following2: true
