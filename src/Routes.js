@@ -8,15 +8,11 @@ import AboutPassport from "./Page/Passport/AboutPassport";
 import News from "./Page/News/News";
 import Essay from "./Page/Essay/Essay";
 import Features from "./Page/Features/Features";
-import Test from "./Page/NaviTest/Test";
 import Sorting from "./Page/Sorting/Sorting";
 import SortingResult from "./Page/Sorting/SortingResult";
+import QuizList from "./Page/Quizzes/QuizList";
+import Quizzes from "./Page/Quizzes/Quizzes";
 import "./Styles/common.scss";
-
-// 나중에 지워도 되나..?
-import Header from "./Components/Header/Header";
-import Footer from "./Components/Footer/Footer";
-import Navigator from "./Components/Navigator/Navigator";
 
 export default class Routes extends React.Component {
   render() {
@@ -31,12 +27,11 @@ export default class Routes extends React.Component {
           <Route exact path="/news" component={News} />
           <Route exact path="/features" component={Features} />
           <Route exact path="/Essay" component={Essay} />
-          <Route exact path="/test" component={Test} />
-          <Route exact path="/sorting" component={Sorting} />
           <Route exact path="/sorting-result" component={SortingResult} />
-          <Route exact path="/header" component={Header} />
-          <Route exact path="/footer" component={Footer} />
-          <Route exact path="/navigator" component={Navigator} />
+          <Route exact path="/about-passport" component={AboutPassport} />
+          <Route exact path="/sorting" component={Sorting} />
+          <Route exact path="/quizlist" component={QuizList} />
+          <Route exact path="/quizzes" component={Quizzes} />
         </Switch>
       </Router>
     );

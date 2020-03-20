@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "./Logo.svg";
-import { GiMagicLamp } from "react-icons/gi";
+import { FaMagic } from "react-icons/fa";
 import styled from "styled-components";
 import Navigator from "../Navigator/Navigator";
 import { withRouter } from "react-router-dom";
@@ -157,15 +157,15 @@ class Header extends React.Component {
                 <MenuIconSpan></MenuIconSpan>
               </MenuIconLabel>
             </HeaderNaviDiv>
-            <HeaderLogoDiv click={this.goHome}>
+            <HeaderLogoDiv onClick={this.goHome}>
               <LogoImg src={Logo}></LogoImg>
             </HeaderLogoDiv>
             {this.state.loginStatus === true ? (
-              <HeaderLogin click={this.goLogin}>
-                <GiMagicLamp size="40" color="yellow" />
+              <HeaderLogin onClick={this.goLogin}>
+                <FaMagic size="40" color="white" />
               </HeaderLogin>
             ) : (
-              <HeaderLogin click={this.goLogin}>LOGIN</HeaderLogin>
+              <HeaderLogin onClick={this.goLogin}>LOGIN</HeaderLogin>
             )}
           </OuterDiv>
         </HeaderDiv>
@@ -357,7 +357,7 @@ const HeaderLogin = styled.div`
   text-align: right;
   margin-right: 100px;
   cursor: pointer;
-  font-family: Sofia Pro, serif;
+  font-family: Sofia Pro Bold, serif;
   font-size: 14px;
   font-weight: 700;
   font-style: normal;

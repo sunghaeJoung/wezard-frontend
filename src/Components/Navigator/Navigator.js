@@ -10,10 +10,13 @@ class Navigator extends React.Component {
       //☞ state값 들어갈 자리
     };
   }
+  goPage = e => {
+    this.props.history.push(e);
+  };
+  /*   함수 한개로 리팩토링
   goNews = () => {
     this.props.history.push("/news");
   };
-
   goHogwarts = () => {
     this.props.history.push("/sorting");
   };
@@ -21,20 +24,9 @@ class Navigator extends React.Component {
     this.props.history.push("/features");
   };
   goQuizzes = () => {
-    this.props.history.push("/quizzes");
-  };
-  goGryffindor = () => {
-    this.props.history.push("/gryffindor");
-  };
-  goHufflepuff = () => {
-    this.props.history.push("/hufflepuff");
-  };
-  goRavenclaw = () => {
-    this.props.history.push("/ravenclaw");
-  };
-  goSlytherin = () => {
-    this.props.history.push("/slytherin");
-  };
+    this.props.history.push("/quizlist");
+  }; */
+
   //☞ 함수 들어갈 자리
   render() {
     //☞ 맵함수 구현할 자리
@@ -53,7 +45,7 @@ class Navigator extends React.Component {
               </NaviSpan1>
               <IoIosArrowForward size="24" color="white" />
             </NaviLi>
-            <NaviLi click={this.goQuizzes}>
+            <NaviLi onClick={() => this.goPage("/quizlist")}>
               <NaviSpan2 menu={this.props.menu}>Quizzes</NaviSpan2>
             </NaviLi>
             <NaviLi>
@@ -77,7 +69,7 @@ class Navigator extends React.Component {
               </NaviSpan5>
               <IoIosArrowForward size="24" color="white" />
             </NaviLi>
-            <NaviLi click={this.goHogwarts}>
+            <NaviLi onClick={() => this.goPage("/sorting")}>
               <NaviSpan6 menu={this.props.menu}>Hogwarts Sorting</NaviSpan6>
             </NaviLi>
             <NaviLi>
@@ -94,10 +86,11 @@ class Navigator extends React.Component {
             <NaviLiRow noneCursor>
               <NaviSpan>News & Features</NaviSpan>
             </NaviLiRow>
-            <NaviLiRow click={this.goNews}>
+            {/* <NaviLiRow onClick={this.goNews}> */}
+            <NaviLiRow onClick={() => this.goPage("/news")}>
               <NaviSpanRow>News</NaviSpanRow>
             </NaviLiRow>
-            <NaviLiRow click={this.goFeatures}>
+            <NaviLiRow onClick={() => this.goPage("/features")}>
               <NaviSpanRow>Features</NaviSpanRow>
             </NaviLiRow>
           </NaviUlRow>
@@ -108,16 +101,16 @@ class Navigator extends React.Component {
             <NaviLiRow noneCursor>
               <NaviSpan>House Pride</NaviSpan>
             </NaviLiRow>
-            <NaviLiRow click={this.goGryffindor}>
+            <NaviLiRow>
               <NaviSpanRow>Gryffindor</NaviSpanRow>
             </NaviLiRow>
-            <NaviLiRow click={this.goHufflepuff}>
+            <NaviLiRow>
               <NaviSpanRow>Hufflepuff</NaviSpanRow>
             </NaviLiRow>
-            <NaviLiRow click={this.goRavenclaw}>
+            <NaviLiRow>
               <NaviSpanRow>Ravenclaw</NaviSpanRow>
             </NaviLiRow>
-            <NaviLiRow click={this.goSlytherin}>
+            <NaviLiRow>
               <NaviSpanRow>Slytherin</NaviSpanRow>
             </NaviLiRow>
           </NaviUlRow>
@@ -366,6 +359,7 @@ const NaviLiRow = styled.li`
   height: 48px;
   margin-top: 6px;
   align-items: center;
+  /* font-family: Sofia Pro regular, serif; */
   cursor: ${props => (props.noneCursor ? "" : "pointer")};
 `;
 
@@ -373,7 +367,7 @@ const NaviSpanRow = styled.span`
   height: 48px;
   cursor: pointer;
   text-align: center;
-  font-family: Sofia Pro, serif;
+  font-family: Sofia Pro regular, serif;
   color: white;
   font-size: 24px;
   display: flex;
