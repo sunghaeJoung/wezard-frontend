@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "../../../Components/Header/Header";
-import diamond from "Images/Diamond.svg";
+import Diamond from "../../../Components/Diamond";
 import styled from "styled-components";
 
 class Top extends Component {
@@ -17,9 +17,9 @@ class Top extends Component {
                 years-strong, dig deep into the Wizarding World with our
                 collection of features
               </Article>
-              <Diamond>
-                <img src={diamond} alt="diamond"></img>
-              </Diamond>
+              <DiamondContainer>
+                <Diamond />
+              </DiamondContainer>
             </TextWrapper>
           </BgImg>
         </NewsTop>
@@ -70,13 +70,10 @@ const Article = styled.div`
   margin-top: 0px;
 `;
 
-const Diamond = styled.image`
-  img {
-    width: 30px;
-    height: 60px;
-    margin: 30px 0;
-    z-index: 100;
-  }
+const DiamondContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 export default Top;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import Diamond from "../../../Components/Diamond";
 import logo from "Images/logo.svg";
-import diamond from "Images/Diamond.svg";
 import styled, { keyframes } from "styled-components";
 import Header from "../../../Components/Header/Header";
 import "slick-carousel/slick/slick.css";
@@ -39,9 +39,10 @@ class Top extends Component {
                 charity Lumos.
               </Note>
               <Button>READ MORE</Button>
-              <Diamond>
-                <img src={diamond} alt="diamond"></img>
-              </Diamond>
+
+              <DiamondContainer>
+                <Diamond />
+              </DiamondContainer>
             </Article>
           </Middle>
         </TopBgImg>
@@ -150,13 +151,10 @@ const Button = styled.button`
   }
 `;
 
-const Diamond = styled.image`
-  img {
-    width: 30px;
-    height: 60px;
-    margin: 50px 0;
-    z-index: 100;
-  }
+const DiamondContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 export default Top;

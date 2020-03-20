@@ -12,6 +12,12 @@ export default class TypeOne extends Component {
     };
   }
 
+  handleClick = select => {
+    const { goNext } = this.props;
+    sessionStorage.setItem("select1", select);
+    goNext();
+  };
+
   handleLeftPart = str => {
     this.setState({
       left_bg: str,
@@ -28,14 +34,14 @@ export default class TypeOne extends Component {
 
   render() {
     const { right_bg, left_bg, right_scale, left_scale } = this.state;
+    const { data } = this.props;
+    // data.choices && console.log(data.choices);
     return (
       <Container>
         <Question>
-          {/* 패치로 text 받아와야해 */}
-          <QuestionText>River or Forest</QuestionText>
+          <QuestionText>{data && data.question}</QuestionText>
           <QuestionText sub>CHOOSE ONE TO CONTINUE</QuestionText>
         </Question>
-        {/* 여기 뭔지 나중에 확인해야해 */}
         <DiagonalWrapper>
           <Diagonal right_bg={right_bg}></Diagonal>
           <Diagonal left left_bg={left_bg}></Diagonal>
@@ -56,26 +62,24 @@ export default class TypeOne extends Component {
             ></img>
           </Poly>
         </PolyWrapper>
-        {/* 패치받아와서 바꾸기 */}
         <CardWrapper>
           <Card>
-            <img
-              src="https://my.wizardingworld.com/static/media/river-forest.d374fcab.png"
-              alt="card"
-            ></img>
+            <img src={data && data.img_center} alt="card"></img>
             <Button
               right
               onMouseOver={() => this.handleLeftPart(true)}
               onMouseLeave={() => this.handleLeftPart(false)}
+              onClick={() => this.handleClick(data.choices[1].id)}
             >
-              Forest
+              {data && data.choices && data.choices[1].choice}
             </Button>
             <Button
               left
               onMouseOver={() => this.handleRightPart(true)}
               onMouseLeave={() => this.handleRightPart(false)}
+              onClick={() => this.handleClick(data.choices[0].id)}
             >
-              River
+              {data && data.choices && data.choices[0].choice}
             </Button>
           </Card>
         </CardWrapper>
