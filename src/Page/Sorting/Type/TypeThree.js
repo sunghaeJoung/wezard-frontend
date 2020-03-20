@@ -3,32 +3,34 @@ import styled from "styled-components";
 import { ArrowBackIos } from "styled-icons/material-twotone";
 import { ArrowForwardIos } from "styled-icons/material-twotone";
 
-const TypeThree = data => {
+const TypeThree = arr => {
   const [state, setState] = useState(0);
   const [idx, setIdx] = useState(0);
 
+  const data = arr.data;
   const textArr =
-    data.slider &&
-    data.slider.map(card => {
-      return card.text;
+    data &&
+    data.choices &&
+    data.choices.map(card => {
+      return card.choice;
     });
 
+  const { goResult } = arr;
   return (
     <Container>
       <Content>
-        <Question>
-          Late at night, walking alone down the street, you hear a peculiar cry
-          that you believe to have a magical source. Do you:
-        </Question>
+        <Question>{data && data.question}</Question>
         <SliderContent>
           <SlidersCover>
+            <SliderFrame></SliderFrame>
             <Sliders
               state={state}
-              length={data.slider !== 0 && data.slider.length}
+              length={data && data.choices && data.choices.length}
             >
-              {data.slider &&
-                data.slider.map(card => (
-                  <img key={card.id} src={card.img} alt="slider"></img>
+              {data &&
+                data.choices &&
+                data.choices.map((card, i) => (
+                  <img key={i} src={card.img} alt="slider"></img>
                 ))}
             </Sliders>
           </SlidersCover>
@@ -40,7 +42,7 @@ const TypeThree = data => {
               }}
             />
           )}
-          {idx !== textArr.length - 1 && (
+          {textArr && idx !== textArr.length - 1 && (
             <ArrowRight
               onClick={() => {
                 setState(state - 234);
@@ -48,9 +50,9 @@ const TypeThree = data => {
               }}
             />
           )}
+          {textArr && <Text>{textArr[idx]}</Text>}
 
-          <Text>{textArr[idx]}</Text>
-          <Button>SELECT</Button>
+          <Button onClick={() => goResult(idx + 6)}>SELECT</Button>
         </SliderContent>
       </Content>
     </Container>
@@ -104,6 +106,16 @@ const SlidersCover = styled.div`
   overflow: hidden !important;
 `;
 
+const SliderFrame = styled.div`
+  width: 234px;
+  height: 300px;
+  position: absolute;
+  z-index: 999;
+  background-image: url("https://my.wizardingworld.com/static/media/mask.6e673c8a.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
 const Sliders = styled.div`
   display: flex;
   width: (${props => props.length} * 234) px;
@@ -114,6 +126,9 @@ const Sliders = styled.div`
     width: 234px;
     height: 300px;
     margin: 0 auto;
+    background-image: url("https://my.wizardingworld.com/static/media/bg.7edd08c8.png");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 `;
 
@@ -152,6 +167,7 @@ const Button = styled.button`
   color: #fff;
   background-color: transparent;
   min-width: 200px;
+  outline: none;
   cursor: pointer;
 
   :hover {

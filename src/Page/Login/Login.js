@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import key from "../../Images/Key.svg";
 import { Close } from "styled-icons/evaicons-solid";
 import { Address } from "../../config";
+import { AWS } from "../../config";
+import key from "../../Images/Key.svg";
 
 export default class Login extends Component {
   constructor(props) {
@@ -98,7 +99,7 @@ export default class Login extends Component {
   loginFetch = () => {
     !this.state.error &&
       this.state.button &&
-      fetch("http://52.78.241.65:8000/user/sign-in", {
+      fetch(`${Address}/user/sign-in`, {
         method: "POST",
         body: JSON.stringify({
           email: this.state.email,
@@ -111,7 +112,7 @@ export default class Login extends Component {
           if (res.token) {
             // console.log("res status", res.token);
             sessionStorage.setItem("token", res.token);
-            this.props.history.push("/");
+            this.props.history.push("/sorting");
           } else {
             this.setState({
               error_login: true

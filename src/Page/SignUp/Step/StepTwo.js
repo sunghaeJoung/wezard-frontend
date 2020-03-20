@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { AWS } from "../../../config";
 import { Check } from "styled-icons/boxicons-regular";
 import { EyeOutline } from "styled-icons/evaicons-outline";
-import { AWS } from "../../../config";
 
 export default class StepTwo extends Component {
   constructor(props) {

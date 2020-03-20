@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
 import Header from "../../Components/Header/Header";
+import Diamond from "../../Components/Diamond";
 import key from "../../Images/Key.svg";
-import Diamond from "../../Components/Diamond/Diamond";
 
 export default class AboutPassport extends Component {
   goToSignUp = () => {

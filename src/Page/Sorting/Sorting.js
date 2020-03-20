@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import { Address } from "../../config";
 import Header from "../../Components/Header/Header";
 import TypeOne from "./Type/TypeOne";
 import TypeTwo from "./Type/TypeTwo";
@@ -9,31 +10,90 @@ export default class Sorting extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 3,
-      // 패치 받고나서는 이름 바꾸기
-      slider: []
+      type: 1,
+      data1: {},
+      data2: {},
+      data3: {}
     };
   }
 
-  // 백에서 새로 api 받아와야해
   componentDidMount = () => {
-    fetch("http://localhost:3000/data/SortingData.json")
+    const token = sessionStorage.getItem("token");
+    console.log("token: ", token);
+
+    fetch(`${Address}/sorting/house/1`, {
+      headers: {
+        Authorization: token
+      }
+    })
       .then(res => res.json())
       .then(res => {
+        console.log("res: ", res);
         this.setState({
-          slider: res.SortingData
+          data1: res.data
         });
       });
   };
 
-  render() {
-    const { type, slider } = this.state;
-    const obj = {
-      1: <TypeOne />,
-      2: <TypeTwo />,
-      3: <TypeThree slider={slider.length !== 0 && slider} />
-    };
+  componentDidUpdate = (prevProps, prevState) => {
+    const { type } = this.state;
+    if (prevState.type !== this.state.type) {
+      fetch(`${Address}/sorting/house/${type}`, {
+        headers: {
+          Authorization: sessionStorage.getItem("token")
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          if (type === 2) {
+            this.setState({
+              data2: res.data
+            });
+          } else if (type === 3) {
+            this.setState({
+              data3: res.data
+            });
+          }
+        });
+    }
+  };
 
+  // 자식컴포넌트에서 선택지 클릭하면 실행되는 함수(다음단계 이동)
+  goNext = () => {
+    this.setState({
+      type: this.state.type + 1
+    });
+  };
+
+  // 마지막 선택지 클릭하면 실행되는 함수
+  goResult = select => {
+    sessionStorage.setItem("select3", select);
+    this.props.history.push("/sorting-result");
+  };
+
+  render() {
+    const { type, data1, data2, data3 } = this.state;
+    const obj = {
+      1: (
+        <TypeOne
+          data={data1 && data1.id && data1.id === 1 && data1}
+          goNext={this.goNext}
+        />
+      ),
+      2: (
+        <TypeTwo
+          data={data2 && data2.id && data2.id === 2 && data2}
+          goNext={this.goNext}
+        />
+      ),
+      3: (
+        <TypeThree
+          data={data3 && data3.id && data3.id === 3 && data3}
+          goResult={this.goResult}
+        />
+      )
+    };
+    console.log("selects", this.state.selects);
     return (
       <SortingComponent type={type}>
         <Header />

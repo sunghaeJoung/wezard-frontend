@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Close } from "styled-icons/evaicons-solid";
+import { ArrowBack } from "styled-icons/evaicons-solid";
 import StepOne from "./Step/StepOne";
 import StepTwo from "./Step/StepTwo";
 import StepThree from "./Step/StepThree";
 import Finish from "./Step/Finish";
-import { Close } from "styled-icons/evaicons-solid";
-import { ArrowBack } from "styled-icons/evaicons-solid";
 
 export default class SignUp extends Component {
   constructor(props) {
@@ -49,8 +49,6 @@ export default class SignUp extends Component {
             <Number>01</Number>
             <ProgressBar>
               <Line step={step}></Line>
-              <Line></Line>
-              <Line></Line>
             </ProgressBar>
             <Number>03</Number>
           </Step>
@@ -98,40 +96,32 @@ const Number = styled.div`
   font-family: "Sofia Pro Bold";
 `;
 
-const ProgressBar = styled.ul`
+const ProgressBar = styled.div`
   width: 180px;
   height: 2px;
   display: flex;
-  margin-top: 10px;
-  margin-bottom: 0;
-  padding: 0 10px;
+  margin: 10px 10px 0 10px;
+  background-color: #555;
 `;
 
-const Line = styled.li`
+const Line = styled.div`
   flex: 1 1;
   list-style: none;
-  width: 60px;
+  width: calc(${props => props.step && 60 * props.step}px);
   height: 2px;
-  background-color: #555;
-  position: relative;
+  background-color: #fff;
+  position: absolute;
 
-  ${props => {
-    if (props.step === 1) {
-      return `
-            background-color: #fff;
-  // &:after {
-  //   position: absolute;
-  //   width: 10px;
-  //   height: 4px;
-  //   right: 0;
-  //   top: -1px;
-  //   content: "";
-  //   filter: blur(1px);
-  //   background-image: linear-gradient(90deg, hsla(0, 0%, 100%, 0), #fff);
-  // }
-          `;
-    }
-  }}
+  &:after {
+    position: absolute;
+    width: 10px;
+    height: 4px;
+    right: 0;
+    top: -1px;
+    content: "";
+    filter: blur(1px);
+    background-image: linear-gradient(90deg, hsla(0, 0%, 100%, 0), #fff);
+  }
 `;
 
 const ArrowIcon = styled(ArrowBack)`

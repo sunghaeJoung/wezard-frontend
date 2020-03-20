@@ -1,6 +1,6 @@
 import React from "react";
 // import "./Footer.scss";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 class Footer extends React.Component {
   constructor() {
@@ -13,7 +13,7 @@ class Footer extends React.Component {
     //☞ 맵함수 구현할 자리
     return (
       <>
-        <Outer>
+        <Outer sorting={this.props.sorting}>
           <FlexDiv>
             <CopyRightP>© Wizarding World Digital 2020</CopyRightP>
             <UnorderedList>
@@ -51,6 +51,14 @@ const Outer = styled.div`
   bottom: 0; */
   border-top: 1px solid #242633;
   z-index: 4;
+
+  /* sorting페이지에서 footer 스타일 적용*/
+  ${props =>
+    props.sorting &&
+    css`
+      background-color: #10141b;
+      border-top: none;
+    `}
 `;
 
 const CopyRightP = styled.p`

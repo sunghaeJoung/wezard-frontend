@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Header from "../../Components/Header/Header";
-import Diamond from "../../Components/Diamond/Diamond";
+import Diamond from "../../Components/Diamond";
 
 export default class Passport extends Component {
+  goToSorting = () => {
+    const token = sessionStorage.getItem("token");
+    token && this.props.history.push("/sorting");
+  };
+
   render() {
     return (
       <PassportComponent>
@@ -16,7 +21,7 @@ export default class Passport extends Component {
               <UserName>joung</UserName>
               <UserName>sunghae</UserName>
             </UserNameContainer>
-            <Button>DISCOVER YOUR HOUSE</Button>
+            <Button onClick={this.goToSorting}>DISCOVER YOUR HOUSE</Button>
           </Section>
           <SectionButtom>
             <Text>FAVORITES</Text>

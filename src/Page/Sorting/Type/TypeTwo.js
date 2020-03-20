@@ -2,57 +2,44 @@ import React, { Component } from "react";
 import styled, { css } from "styled-components";
 
 export default class TypeTwo extends Component {
+  handleClick = select => {
+    const { goNext } = this.props;
+    sessionStorage.setItem("select2", select);
+    goNext();
+  };
+
   render() {
+    const { data } = this.props;
     return (
       <Container>
         <Question>
-          {/* 패치로 text 받아와야해 */}
-          <QuestionText main>
-            If you were attending Hogwarts, which pet would you choose to take
-            with you?
-          </QuestionText>
+          <QuestionText main>{data && data.question}</QuestionText>
           <QuestionText sub>CHOOSE A CATEGORY TO CONTINUE</QuestionText>
         </Question>
         <CardWrapper>
-          <Card>
-            <img
-              src="https://my.wizardingworld.com/static/media/cat@2x.9caf18ee.png"
-              alt="card"
-            ></img>
-            <CardButtom left>
-              <Num>
-                <div></div>
-              </Num>
-              <Name>Cats</Name>
-              <Button>SELECT</Button>
-            </CardButtom>
-          </Card>
-          <Card>
-            <img
-              src="https://my.wizardingworld.com/static/media/toad@2x.51fb4db6.png"
-              alt="card"
-            ></img>
-            <CardButtom>
-              <Num>
-                <div></div>
-              </Num>
-              <Name>Cats</Name>
-              <Button>SELECT</Button>
-            </CardButtom>
-          </Card>
-          <Card>
-            <img
-              src="https://my.wizardingworld.com/static/media/owl@2x.793a5c37.png"
-              alt="card"
-            ></img>
-            <CardButtom right>
-              <Num>
-                <div></div>
-              </Num>
-              <Name>Cats</Name>
-              <Button>SELECT</Button>
-            </CardButtom>
-          </Card>
+          {data &&
+            data.choices &&
+            data.choices.map((card, i) => {
+              return (
+                <Card key={i}>
+                  <img src={card.img} alt="card"></img>
+                  <CardButtom
+                    left={i === 0 && "left"}
+                    right={i === 2 && "right"}
+                  >
+                    <Num>
+                      <div>
+                        <div>{i + 1}</div>
+                      </div>
+                    </Num>
+                    <Name>{card.choice}</Name>
+                    <Button onClick={() => this.handleClick(card.id)}>
+                      SELECT
+                    </Button>
+                  </CardButtom>
+                </Card>
+              );
+            })}
         </CardWrapper>
       </Container>
     );
@@ -139,14 +126,14 @@ const Num = styled.div`
     border: 1px solid hsla(0, 0%, 100%, 0.3);
     transform: rotate(-45deg);
 
-    ::after {
-      content: "I";
+    div {
+      border: none;
       font-size: 12px;
       text-align: center;
       font-weight: 700;
       position: absolute;
-      left: 0;
-      top: 0;
+      left: -3px;
+      top: 4px;
       right: 0;
       bottom: 0;
       transform: rotate(45deg);
