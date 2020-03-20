@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SliderBox from "./SliderBox";
 import Slider from "react-slick";
+import { URL } from "../../../config";
 import styled from "styled-components";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -10,19 +11,20 @@ class SlickSlider extends Component {
     super();
 
     this.state = {
-      SliderData: []
+      data: []
     };
   }
 
   componentDidMount() {
-    // fetch("http://localhost:3000/data/FeaturesData.json", {
-    //   method: "GET"
-    // })
-    fetch("http://localhost:3000/data/SliderData.json")
+    fetch(`${URL}/article/main-slide?end=118&step=12`, {
+      method: "GET"
+    })
+      // fetch("http://10.58.7.135:8000/article/main-slide")
       .then(res => res.json())
       .then(res => {
+        console.log("dddd", res.data);
         this.setState({
-          SliderData: res.SliderData
+          data: res.data
         });
       });
   }
@@ -63,15 +65,17 @@ class SlickSlider extends Component {
     return (
       <SliderWrapper>
         <Slider {...settings}>
-          {this.state.SliderData.map(item => {
-            return (
-              <SliderBox
-                img={item.img}
-                category={item.category}
-                title={item.title}
-              />
-            );
-          })}
+          {this.state.data &&
+            this.state.data.map((item, i) => {
+              return (
+                <SliderBox
+                  thumbnail={item.thumbnail}
+                  category={item.name}
+                  title={item.title}
+                  key={i}
+                />
+              );
+            })}
         </Slider>
       </SliderWrapper>
     );

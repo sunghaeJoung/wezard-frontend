@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const BottomBox = props => {
+  console.log(props.id);
   return (
     <>
-      <CardWrapper>
+      <CardWrapper onClick={() => props.goDetail(props.id)}>
         <ThumbnailWrapper>
           <Thumbnail src={props.thumbnail} alt="" />
         </ThumbnailWrapper>
@@ -32,6 +33,9 @@ const ThumbnailWrapper = styled.div`
 
 const Thumbnail = styled.img`
   margin: 0 auto;
+  width: 380px;
+  height: 285px;
+  object-fit: cover;
 `;
 
 const Category = styled.div`

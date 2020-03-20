@@ -16,13 +16,13 @@ class Main extends Component {
 
   componentDidMount() {
     const queryId = this.props.location.search.split("=")[1];
-    const end = queryId + 6;
+    const end = queryId + 93;
     // console.log("id", queryId);
 
     fetch(`${URL}/article/detail/${end}`)
       .then(res => res.json())
       .then(res => {
-        // console.log("드러와:", res.data);
+        console.log("드러와:", res.data);
         this.setState(
           {
             data: res.data[0]
@@ -48,7 +48,7 @@ class Main extends Component {
           <BgImgCover />
           <Header />
           <TextWrapper>
-            <Category>news</Category>
+            <Category>features</Category>
             <Title>{this.state.data.title}</Title>
           </TextWrapper>
         </BgImg>
@@ -369,26 +369,6 @@ const Body = styled.div`
   ._1vIqZGTd {
     padding-top: 20px;
   }
-
-  /* ._3x435EZA:first-letter {
-    font-size: 30px;
-    background-image: linear-gradient(
-        -45deg,
-        transparent 48%,
-        hsla(0, 0%, 100%, 0.8) 50%,
-        transparent 52% 100%
-      ),
-      linear-gradient(45deg, #b6a571, #cdb373, #e7da9a);
-  } */
-  /* .tRLX3w71.eHmqK5dV {
-    background-image: linear-gradient(
-        -45deg,
-        transparent 48%,
-        hsla(0, 0%, 100%, 0.8) 50%,
-        transparent 52% 100%
-      ),
-      linear-gradient(45deg, #b6a571, #cdb373, #e7da9a);
-  } */
 `;
 
 //Bottom

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import MiddleBox from "./MiddleBox";
 import styled from "styled-components";
+import { URL } from "../../../config";
+import MiddleBox from "./MiddleBox";
 
 class Middle extends Component {
   constructor() {
@@ -13,15 +14,15 @@ class Middle extends Component {
   }
 
   componentDidMount() {
-    // fetch("http://localhost:3000/data/FeaturesData.json", {
-    //   method: "GET"
-    // })
-    fetch("http://localhost:3000/data/MiddleData.json")
+    fetch(`${URL}/article/1`, {
+      method: "GET"
+    })
+      // fetch("http://localhost:3000/data/MiddleData.json")
       .then(res => res.json())
       .then(res => {
         this.setState({
-          Left: res.MiddleData.slice(0, 2),
-          Right: res.MiddleData.slice(2, 4)
+          Left: res.data.slice(1, 3),
+          Right: res.data.slice(3, 5)
         });
       });
   }
