@@ -1,25 +1,72 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Address } from "../../config";
 import Header from "../../Components/Header/Header";
 import Diamond from "../../Components/Diamond";
 
+const token = sessionStorage.getItem("token");
+
 export default class Passport extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user_info: {},
+      result: {}
+    };
+  }
+
   goToSorting = () => {
-    const token = sessionStorage.getItem("token");
     token && this.props.history.push("/sorting");
   };
 
+  componentDidMount = () => {
+    fetch(`${Address}/sorting/passport`, {
+      headers: {
+        Authorization: token
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        this.setState({
+          user_info: res.user,
+          result: res.data
+        });
+      });
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const { result } = this.state;
+    if (prevState.result !== result) {
+      fetch(`${Address}/sorting/passport`, {
+        headers: {
+          Authorization: token
+        }
+      })
+        .then(res => res.json())
+        .then(res => {
+          console.log(res);
+          this.setState({
+            result: res.data
+          });
+        });
+    }
+  };
+
   render() {
+    const { user_info, result } = this.state;
     return (
-      <PassportComponent>
+      // user_info &&
+      // result && (
+      <PassportComponent house_bg={result && result["img_bg"]}>
         <Header></Header>
         <Container>
           <PassportText>Wizarding Passport</PassportText>
           <Section>
             <UserNameContainer>
               {/* 백한테 api 유저정보 받아와야해 */}
-              <UserName>joung</UserName>
-              <UserName>sunghae</UserName>
+              <UserName>{user_info && user_info["first_name"]}</UserName>
+              <UserName>{user_info && user_info["last_name"]}</UserName>
             </UserNameContainer>
             <Button onClick={this.goToSorting}>DISCOVER YOUR HOUSE</Button>
           </Section>
@@ -29,6 +76,7 @@ export default class Passport extends Component {
           </SectionButtom>
         </Container>
       </PassportComponent>
+      // )
     );
   }
 }
@@ -40,6 +88,7 @@ const PassportComponent = styled.div`
   font-family: "Bluu Next";
   background-color: #393653;
   background-image: url(https://my.wizardingworld.com/static/media/bg.351c8f53.jpg);
+  background-image: ${props => "url(" + props.house_bg + ")"};
   background-repeat: no-repeat;
   background-size: cover;
 `;

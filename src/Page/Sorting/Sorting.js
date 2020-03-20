@@ -29,15 +29,19 @@ export default class Sorting extends Component {
       .then(res => res.json())
       .then(res => {
         console.log("res: ", res);
-        this.setState({
-          data1: res.data
-        });
+        if (res.message === "INVALID_TOKEN") {
+          alert("Please log in first");
+        } else {
+          this.setState({
+            data1: res.data
+          });
+        }
       });
   };
 
   componentDidUpdate = (prevProps, prevState) => {
     const { type } = this.state;
-    if (prevState.type !== this.state.type) {
+    if (prevState.type !== type) {
       fetch(`${Address}/sorting/house/${type}`, {
         headers: {
           Authorization: sessionStorage.getItem("token")
@@ -45,6 +49,7 @@ export default class Sorting extends Component {
       })
         .then(res => res.json())
         .then(res => {
+          console.log(res);
           if (type === 2) {
             this.setState({
               data2: res.data
@@ -93,7 +98,7 @@ export default class Sorting extends Component {
         />
       )
     };
-    console.log("selects", this.state.selects);
+
     return (
       <SortingComponent type={type}>
         <Header />
