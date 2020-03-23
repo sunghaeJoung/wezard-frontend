@@ -4,8 +4,8 @@ import styled from "styled-components";
 import key from "../../../Images/Key.svg";
 
 class Finish extends Component {
-  goToMain = () => {
-    this.props.history.push("/");
+  goToLogin = () => {
+    this.props.history.push("/login");
   };
 
   render() {
@@ -18,7 +18,7 @@ class Finish extends Component {
             Welcome to the Official Harry Potter Fan
             <br /> Club.
           </TextSub>
-          <Button onClick={this.goToMain}>FINISH</Button>
+          <Button onClick={this.goToLogin}>FINISH</Button>
         </Container>
       </FinishComponent>
     );

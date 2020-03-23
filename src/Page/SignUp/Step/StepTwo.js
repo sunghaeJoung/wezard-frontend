@@ -88,7 +88,7 @@ export default class StepTwo extends Component {
     }
   };
 
-  // 이메일 같은지 확인
+  // 이메일 오류 메시지
   verifyEmail = () => {
     const { email, verify } = this.state;
     return email !== verify && <div>Emails don't match</div>;
