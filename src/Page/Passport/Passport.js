@@ -5,6 +5,7 @@ import Header from "../../Components/Header/Header";
 import Diamond from "../../Components/Diamond";
 
 const token = sessionStorage.getItem("token");
+const house = sessionStorage.getItem("house");
 
 export default class Passport extends Component {
   constructor(props) {
@@ -35,26 +36,9 @@ export default class Passport extends Component {
       });
   };
 
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   const { result } = this.state;
-  //   if (prevState.result !== result) {
-  //     fetch(`${Address}/sorting/passport`, {
-  //       headers: {
-  //         Authorization: token
-  //       }
-  //     })
-  //       .then(res => res.json())
-  //       .then(res => {
-  //         console.log(res);
-  //         this.setState({
-  //           result: res.data
-  //         });
-  //       });
-  //   }
-  // };
-
   render() {
     const { user_info, result } = this.state;
+    console.log(result);
     return (
       // user_info &&
       // result && (
@@ -68,7 +52,11 @@ export default class Passport extends Component {
               <UserName>{user_info && user_info["first_name"]}</UserName>
               <UserName>{user_info && user_info["last_name"]}</UserName>
             </UserNameContainer>
-            <Button onClick={this.goToSorting}>DISCOVER YOUR HOUSE</Button>
+            {result["house_result"] === null ? (
+              <Button onClick={this.goToSorting}>DISCOVER YOUR HOUSE</Button>
+            ) : (
+              <House>{house}</House>
+            )}
           </Section>
           <SectionButtom>
             <Text>FAVORITES</Text>
@@ -140,6 +128,13 @@ const Button = styled.button`
     box-shadow: inset 0 0 0 1px #faf6f0;
     transition: background-color 0.3s ease-in-out;
   }
+`;
+
+const House = styled.div`
+  font-size: 30px;
+  text-align: center;
+  font-family: "Mason Sans Bold";
+  padding: 20px 10px;
 `;
 
 const SectionButtom = styled.div`

@@ -34,9 +34,14 @@ export default class SortingResult extends Component {
       .then(res => res.json())
       .then(res => {
         console.log(res.data);
-        this.setState({
-          result: res.data
-        });
+        this.setState(
+          {
+            result: res.data
+          },
+          () => {
+            sessionStorage.setItem("house", this.state.result.name);
+          }
+        );
       });
   };
 

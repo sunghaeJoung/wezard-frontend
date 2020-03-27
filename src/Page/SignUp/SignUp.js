@@ -44,7 +44,7 @@ export default class SignUp extends Component {
     return (
       <SignUpComponent>
         <Header hide={step}>
-          {step !== 1 && <ArrowIcon />}
+          {step !== 1 && <ArrowIcon onClick={this.goBack} />}
           <Step>
             <Number>01</Number>
             <ProgressBar>
