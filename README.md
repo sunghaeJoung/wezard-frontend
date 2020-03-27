@@ -40,4 +40,4 @@ Deployment : **AWS**
 
 ### 데모영상
 
-[![](./Images/readme.png)](https://youtu.be/Ly-o9a1oEkg)
+[![readme.png](./src/Images/readme.png)](https://youtu.be/Ly-o9a1oEkg)
