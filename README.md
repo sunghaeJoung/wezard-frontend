@@ -1,4 +1,4 @@
-### 프로젝트 소개 : ZARA 클론\_frontend
+### 프로젝트 소개 : Harry Potter Website 클론\_frontend
 
 - 영화 해리포터의 작가 J.K. 롤링이 만든([해리포터 공식 웹사이트](https://www.wizardingworld.com/)) 클론코딩 했습니다.
 - 2개월차 wecode 6기 수강생들의 클론코딩 프로젝트입니다.
