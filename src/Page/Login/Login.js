@@ -165,6 +165,9 @@ export default class Login extends Component {
             <div
               class="g-signin2"
               data-onsuccess="onSignIn"
+              data-width="315"
+              data-height="45"
+              id="custonBtn"
               onClick={() => this.onSignIn()}
             ></div>
             <Button button={button} onClick={this.loginFetch}>
@@ -284,6 +287,24 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  #custonBtn {
+    div {
+      border-radius: 30px;
+
+      &:hover{
+      box-shadow: none;
+     }
+
+      span {
+        font-family: "Sofia Pro Bold";
+        font-size: 14px;
+        font-weight: 700;
+        position: absolute;
+        right: calc(50% - 22px);
+      }
+    }
+  }
 `;
 
 const Button = styled.button`
